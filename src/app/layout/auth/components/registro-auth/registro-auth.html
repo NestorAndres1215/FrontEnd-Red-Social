@@ -1,0 +1,84 @@
+<body>
+
+    <div class="register-container">
+        <div class="logo">
+            <div class="logo-icon">
+                <img src="/img/logo/logo_original.png" alt="Social Like">
+                <h1>SocialLike</h1>
+            </div>
+        </div>
+        <h2>Crear Cuenta</h2>
+        <p>Registrar en SocialLike para comenzar a conectar</p>
+        <form>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="nombre"><i class="fas fa-user"></i> Nombre</label>
+                    <input type="text" id="nombre" name="nombre" placeholder="Ingresa tu nombre" required>
+                </div>
+                <div class="form-group">
+                    <label for="apellido"><i class="fas fa-user"></i> Apellido</label>
+                    <input type="text" id="apellido" name="apellido" placeholder="Ingresa tu apellido" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="username"><i class="fas fa-user"></i> Usuario</label>
+                    <input type="text" id="username" name="username" placeholder="Ingresa tu usuario" required>
+                </div>
+                <div class="form-group">
+                    <label for="password"><i class="fas fa-lock"></i> Contraseña</label>
+                    <div class="password-group">
+                        <input [type]="showPassword ? 'text' : 'password'" type="password" id="password" name="password"
+                            placeholder="Ingresa tu contraseña" required>
+                        <i class="fas password-toggle" [class.fa-eye]="!showPassword"
+                            [class.fa-eye-slash]="showPassword" (click)="togglePassword()"></i>
+                    </div>
+                </div>
+
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="correo"><i class="fas fa-envelope"></i> Correo</label>
+                    <input type="email" id="correo" name="correo" placeholder="Ingresa tu correo" required>
+                </div>
+                <div class="form-group">
+                    <label for="telefono"><i class="fas fa-phone"></i> Teléfono</label>
+                    <input type="tel" id="telefono" name="telefono" placeholder="Ingresa tu teléfono" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="fechaNacimiento"><i class="fas fa-calendar"></i> Fecha de Nacimiento</label>
+                    <input type="date" id="fechaNacimiento" name="fechaNacimiento" required>
+                </div>
+                <div class="form-group">
+                    <label for="nacionalidad"><i class="fas fa-globe"></i> Nacionalidad</label>
+                    <select id="nacionalidad" name="nacionalidad" required>
+                        <option value="" disabled selected>Selecciona tu nacionalidad</option>
+                        <option value="mexicana">Mexicana</option>
+                        <option value="española">Española</option>
+                        <option value="argentina">Argentina</option>
+                        <option value="colombiana">Colombiana</option>
+                        <option value="otra">Otra</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="extra-large" >
+                    <label for="genero"><i class="fas fa-venus-mars"></i> Género</label>
+                    <select id="genero" name="genero" required>
+                        <option value="" disabled selected>Selecciona tu género</option>
+                        <option value="masculino">Masculino</option>
+                        <option value="femenino">Femenino</option>
+                        <option value="otro">Otro</option>
+                        <option value="no_especificar">Prefiero no especificar</option>
+                    </select>
+                </div>
+            </div>
+            <button type="submit" class="register-button"><i class="fas fa-user-plus"></i> Registrarse</button>
+        </form>
+        <div class="login-link">
+            ¿Ya tienes cuenta? <a href="login">Inicia sesión aquí</a>
+        </div>
+    </div>
+</body>

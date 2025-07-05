@@ -1,0 +1,135 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom, #1e40af, #3b82f6);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+
+}
+
+.login-container {
+    background-color: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    margin: 20px auto;
+}
+
+.login-container img {
+    height: 40px;
+    width: auto;
+}
+
+.login-container h2 {
+    font-size: 32px;
+    color: #1e40af;
+    margin-bottom: 20px;
+}
+
+.login-container p {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+    position: relative;
+}
+
+.form-group label {
+    display: block;
+    font-size: 14px;
+    color: #1e40af;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px 10px 10px 12px;
+    border: 1px solid #dbeafe;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #1e40af;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #2563eb;
+    font-size: 16px;
+}
+
+.password-toggle:hover {
+    color: #1e40af;
+}
+      .password-group {
+          position: relative;
+      }
+
+.password-toggle:hover {
+    color: #2563eb;
+}
+
+.login-button {
+    background-color: #1e40af;
+    color: white;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 25px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.login-button:hover {
+    background-color: #2563eb;
+    transform: scale(1.05);
+}
+
+.forgot-password-link {
+    text-align: right;
+    margin-top: 5px;
+}
+
+.forgot-password-link a {
+    font-size: 0.95em;
+    color: #2563eb;
+}
+
+.register-link {
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.register-link a {
+    color: #1e40af;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.register-link a:hover {
+    text-decoration: underline;
+}

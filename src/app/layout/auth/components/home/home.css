@@ -87,6 +87,11 @@ nav {
     overflow: hidden;
 }
 
+.hero-content {
+    display: flex;
+    justify-content: center;
+}
+
 .hero::before,
 .hero::after {
     content: '';
@@ -109,8 +114,15 @@ nav {
 }
 
 @keyframes float {
-    0%, 100% { transform: translateY(0) scale(1); }
-    50% { transform: translateY(30px) scale(1.1); }
+
+    0%,
+    100% {
+        transform: translateY(0) scale(1);
+    }
+
+    50% {
+        transform: translateY(30px) scale(1.1);
+    }
 }
 
 .hero h2 {
@@ -159,8 +171,15 @@ nav {
 
 /* Animations */
 @keyframes slideIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .fade-in {
@@ -168,8 +187,13 @@ nav {
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 /* Responsive Design */
@@ -258,8 +282,15 @@ nav {
 }
 
 @keyframes float {
-    0%, 100% { transform: translateY(0) scale(1); }
-    50% { transform: translateY(20px) scale(1.05); }
+
+    0%,
+    100% {
+        transform: translateY(0) scale(1);
+    }
+
+    50% {
+        transform: translateY(20px) scale(1.05);
+    }
 }
 
 .features h3 {
@@ -337,8 +368,15 @@ nav {
 
 /* Animations */
 @keyframes slideIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .fade-in {
@@ -346,8 +384,13 @@ nav {
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 /* Responsive Design */
@@ -386,6 +429,7 @@ nav {
         grid-template-columns: 1fr;
     }
 }
+
 .notifications {
     background: linear-gradient(135deg, #f8fafc, #e2e8f0);
     padding: 80px 0;
@@ -449,11 +493,19 @@ nav {
 }
 
 @keyframes float {
-    0%, 100% { transform: translateY(0) scale(1); }
-    50% { transform: translateY(20px) scale(1.05); }
+
+    0%,
+    100% {
+        transform: translateY(0) scale(1);
+    }
+
+    50% {
+        transform: translateY(20px) scale(1.05);
+    }
 }
 
-.notifications h3, .feeds h3 {
+.notifications h3,
+.feeds h3 {
     font-size: 2.5rem;
     font-weight: 800;
     color: #1e3a8a;
@@ -463,17 +515,20 @@ nav {
     animation: slideIn 1s ease-out;
 }
 
-.notifications h3 i, .feeds h3 i {
+.notifications h3 i,
+.feeds h3 i {
     margin-right: 12px;
     color: #3b82f6;
     transition: transform 0.3s ease;
 }
 
-.notifications h3:hover i, .feeds h3:hover i {
+.notifications h3:hover i,
+.feeds h3:hover i {
     transform: scale(1.2);
 }
 
-.notifications p, .feeds p {
+.notifications p,
+.feeds p {
     font-size: 1.2rem;
     color: #4b5563;
     line-height: 1.6;
@@ -485,8 +540,15 @@ nav {
 
 /* Animations */
 @keyframes slideIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .fade-in {
@@ -494,34 +556,47 @@ nav {
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    .notifications, .feeds {
+
+    .notifications,
+    .feeds {
         padding: 60px 0;
     }
 
-    .notifications h3, .feeds h3 {
+    .notifications h3,
+    .feeds h3 {
         font-size: 2rem;
     }
 
-    .notifications p, .feeds p {
+    .notifications p,
+    .feeds p {
         font-size: 1.1rem;
     }
 }
 
 @media (max-width: 480px) {
-    .notifications h3, .feeds h3 {
+
+    .notifications h3,
+    .feeds h3 {
         font-size: 1.8rem;
     }
 
-    .notifications p, .feeds p {
+    .notifications p,
+    .feeds p {
         font-size: 1rem;
     }
 }
+
 .gallery {
     background: #ffffff;
     padding: 80px 0;
@@ -585,11 +660,19 @@ nav {
 }
 
 @keyframes float {
-    0%, 100% { transform: translateY(0) scale(1); }
-    50% { transform: translateY(20px) scale(1.05); }
+
+    0%,
+    100% {
+        transform: translateY(0) scale(1);
+    }
+
+    50% {
+        transform: translateY(20px) scale(1.05);
+    }
 }
 
-.gallery h3, .profile h3 {
+.gallery h3,
+.profile h3 {
     font-size: 2.5rem;
     font-weight: 800;
     color: #1e3a8a;
@@ -599,17 +682,20 @@ nav {
     animation: slideIn 1s ease-out;
 }
 
-.gallery h3 i, .profile h3 i {
+.gallery h3 i,
+.profile h3 i {
     margin-right: 12px;
     color: #3b82f6;
     transition: transform 0.3s ease;
 }
 
-.gallery h3:hover i, .profile h3:hover i {
+.gallery h3:hover i,
+.profile h3:hover i {
     transform: scale(1.2);
 }
 
-.gallery p, .profile p {
+.gallery p,
+.profile p {
     font-size: 1.2rem;
     color: #4b5563;
     line-height: 1.6;
@@ -674,12 +760,20 @@ nav {
     margin: 0;
     font-size: 1rem;
     font-weight: 500;
+    color: #ffffff;
 }
 
 /* Animations */
 @keyframes slideIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .fade-in {
@@ -687,21 +781,30 @@ nav {
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    .gallery, .profile {
+
+    .gallery,
+    .profile {
         padding: 60px 0;
     }
 
-    .gallery h3, .profile h3 {
+    .gallery h3,
+    .profile h3 {
         font-size: 2rem;
     }
 
-    .gallery p, .profile p {
+    .gallery p,
+    .profile p {
         font-size: 1.1rem;
     }
 
@@ -715,11 +818,14 @@ nav {
 }
 
 @media (max-width: 480px) {
-    .gallery h3, .profile h3 {
+
+    .gallery h3,
+    .profile h3 {
         font-size: 1.8rem;
     }
 
-    .gallery p, .profile p {
+    .gallery p,
+    .profile p {
         font-size: 1rem;
     }
 
@@ -731,6 +837,7 @@ nav {
         height: 160px;
     }
 }
+
 footer {
     background: linear-gradient(135deg, #1e3a8a, #3b82f6);
     color: #ffffff;
@@ -764,8 +871,15 @@ footer::after {
 }
 
 @keyframes float {
-    0%, 100% { transform: translateY(0) scale(1); }
-    50% { transform: translateY(20px) scale(1.05); }
+
+    0%,
+    100% {
+        transform: translateY(0) scale(1);
+    }
+
+    50% {
+        transform: translateY(20px) scale(1.05);
+    }
 }
 
 .container {
@@ -808,6 +922,11 @@ footer::after {
 .logo:hover .logo-icon {
     transform: scale(1.1);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.logo img {
+    height: 40px;
+    width: auto;
 }
 
 .logo h1 {
@@ -968,8 +1087,15 @@ footer::after {
 
 /* Animations */
 @keyframes slideIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .fade-in {
@@ -977,8 +1103,13 @@ footer::after {
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 /* Responsive Design */
