@@ -83,9 +83,10 @@ body {
 .password-toggle:hover {
     color: #1e40af;
 }
-      .password-group {
-          position: relative;
-      }
+
+.password-group {
+    position: relative;
+}
 
 .password-toggle:hover {
     color: #2563eb;

@@ -14,7 +14,7 @@ export class LoginService {
 
   // Método para generar el token
   public generateToken(loginData: any) {
-    return this.http.post(`${baserUrl}/generate-token`, loginData);
+    return this.http.post(`${baserUrl}/auth/generate-token`, loginData);
   }
 
   public getCurrentUser() {
@@ -22,10 +22,10 @@ export class LoginService {
     if (token) {
       const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
-      return this.http.get(`${baserUrl}/actual-usuario`, { headers });
+      return this.http.get(`${baserUrl}/auth/actual-usuario`, { headers });
     } else {
       // Si no tienes el token, lanza un error o maneja de otra manera
-      return this.http.get(`${baserUrl}/actual-usuario`);  // O puedes manejarlo de otra forma
+      return this.http.get(`${baserUrl}/auth/actual-usuario`);  // O puedes manejarlo de otra forma
     }
   }
 

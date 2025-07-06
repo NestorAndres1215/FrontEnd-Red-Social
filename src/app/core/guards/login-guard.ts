@@ -11,7 +11,7 @@ import { Injectable } from "@angular/core";
     canLoad(): boolean {
       if (this.loginService.isLoggedIn()) {
         const role = this.loginService.getUserRole();
-     //   this.router.navigate([role === 'ADMIN' ? '/administrador' : '/user-dashboard']);
+       this.router.navigate([role === 'ADMIN' ? '/administrador' : '/user-dashboard']);
         return false;
       }
       return true;

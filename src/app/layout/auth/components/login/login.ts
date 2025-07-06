@@ -29,6 +29,7 @@ export class Login {
   }
 
   formSubmit() {
+    console.log(this.loginData)
     // Validar si el nombre de usuario está vacío o nulo
     if (this.loginData.username.trim() === '' || this.loginData.username.trim() === null) {
       Swal.fire({
@@ -69,7 +70,7 @@ export class Login {
     }
 
 
-   // Realizar la llamada al servicio para generar el token
+    // Realizar la llamada al servicio para generar el token
     this.loginService.generateToken(this.loginData).subscribe({
       next: (data: any) => {
         console.log(data.token);
@@ -79,7 +80,7 @@ export class Login {
 
         this.loginService.loginUser(data.token);
 
-// Obtener el usuario actual después de iniciar sesión
+        // Obtener el usuario actual después de iniciar sesión
         this.loginService.getCurrentUser().subscribe({
           next: (user) => {
             console.log(user)
@@ -88,9 +89,9 @@ export class Login {
             // Redirigir según el rol del usuario
             const userRole = this.loginService.getUserRole();
             console.log(userRole)
-//            // Verificar el rol del usuario y redirigir a la página correspondiente
+            //            // Verificar el rol del usuario y redirigir a la página correspondiente
             switch (userRole) {
-              
+
               case 'ADMIN':
                 this.router.navigate(['administrador']);
                 this.loginService.loginStatusSubjec.next(true);
@@ -103,7 +104,7 @@ export class Login {
                 });
                 break;
 
-              
+
 
               case 'NORMAL':
                 this.router.navigate(['profesor']);

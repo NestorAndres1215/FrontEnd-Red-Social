@@ -1,5 +1,7 @@
 import { Routes } from '@angular/router';
 import { LoginGuard } from './core/guards/login-guard';
+import { HomeAdmin } from './layout/admin/components/home-admin/home-admin';
+import { AdminGuard } from './core/guards/admin-guard';
 
 export const routes: Routes = [
 
@@ -32,8 +34,15 @@ export const routes: Routes = [
         canLoad: [LoginGuard]
     },
 
-
-
+    {
+        path: '',
+        component: HomeAdmin,
+        canActivate: [AdminGuard],
+        children: [
+            // Carga el módulo de 'home-admin'
+            { path: 'administrador', loadChildren: () => import('./layout/admin/modules/admin/admin-module').then(m => m.AdminModule) },
+        ]
+    },
 
 
 ];
