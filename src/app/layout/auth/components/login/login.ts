@@ -107,7 +107,7 @@ export class Login {
 
 
               case 'NORMAL':
-                this.router.navigate(['profesor']);
+                this.router.navigate(['inicio']);
                 this.loginService.loginStatusSubjec.next(true);
                 Swal.fire({
                   icon: 'success',

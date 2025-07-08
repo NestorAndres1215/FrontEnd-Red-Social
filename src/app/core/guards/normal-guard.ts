@@ -19,7 +19,7 @@ export class NormalGuard implements CanActivate {
         return true;
       }
 
-      this.router.navigate(['admin']);
+      this.router.navigate(['administrador']);
       return false;
   }
   

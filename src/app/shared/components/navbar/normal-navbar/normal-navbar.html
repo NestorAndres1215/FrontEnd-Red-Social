@@ -1,0 +1,51 @@
+<header>
+    <div class="container">
+        <nav>
+            <div class="logo">
+                <div class="logo-icon">
+                    <img src="/img/logo/logo_original.png" alt="SocialLike Logo" />
+                </div>
+                <h1>SocialLike</h1>
+            </div>
+            <button class="hamburger" aria-label="Toggle menu" (click)="toggleNav()">
+                <i class="fas" [ngClass]="isNavActive ? 'fa-times' : 'fa-bars'"></i>
+            </button>
+            <div class="nav-links" [ngClass]="{'active': isNavActive}">
+                <a href="#" [routerLink]="'/inicio'" class="nav-link"><i class="fas fa-home"></i> </a>
+                <a href="#" class="nav-link"><i class="fas fa-users"></i> </a>
+                <a href="#" class="nav-link"><i class="fas fa-message"></i> </a>
+                <a href="#" class="nav-link"><i class="fas fa-video"></i> </a>
+                <a href="#" class="nav-link"><i class="fas fa-bell"></i> </a>
+                <a (click)="logout()" class="nav-link" role="button">
+                    <i class="fas fa-sign-out-alt"></i>
+                </a>
+
+            </div>
+        </nav>
+    </div>
+</header>
+<main>
+    <div class="sidebar">
+        <ul>
+            <li><a href="#"><i class="fas fa-user"></i> Perfil</a></li>
+            <li><a href="#"><i class="fas fa-compass"></i> Explorar</a></li>
+            <li><a href="#"><i class="fas fa-bookmark"></i> Guardados</a></li>
+            <li><a href="#"><i class="fas fa-calendar-alt"></i> Eventos</a></li>
+            <li><a href="#"><i class="fas fa-users"></i> Grupos</a></li>
+            <li><a href="#"><i class="fas fa-envelope"></i> Mensajes</a></li>
+            <li><a href="#"><i class="fas fa-video"></i> Videos</a></li>
+            <li><a href="#"><i class="fas fa-birthday-cake"></i> Cumpleaños</a></li>
+            <li *ngIf="isLoggedIn">
+                <a href="#" (click)="logout()">
+                    <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+                </a>
+            </li>
+
+            <li><a href="#"><i class="fas fa-cog"></i> Configuración</a></li>
+
+        </ul>
+    </div>
+</main>
+<div class="main-content">
+    <router-outlet></router-outlet>
+</div>

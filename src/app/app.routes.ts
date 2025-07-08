@@ -1,7 +1,10 @@
 import { Routes } from '@angular/router';
 import { LoginGuard } from './core/guards/login-guard';
-import { HomeAdmin } from './layout/admin/components/home-admin/home-admin';
+
 import { AdminGuard } from './core/guards/admin-guard';
+import { HomeNormal } from './layout/normal/components/home-normal/home-normal';
+import { NormalGuard } from './core/guards/normal-guard';
+import { HomeAdmin } from './layout/admin/components/home-admin/home-admin';
 
 export const routes: Routes = [
 
@@ -12,7 +15,7 @@ export const routes: Routes = [
     // Carga el módulo de 'registro'
     {
         path: 'registro',
-        loadChildren: () => import('../app/layout/auth/modules/registro-auth/registro-auth-module').then(m => m.RegistroAuthModule),
+        loadChildren: () => import('./layout/auth/modules/registro-auth/registro-auth-module').then(m => m.RegistroAuthModule),
         canLoad: [LoginGuard]
     },
     /*
@@ -25,7 +28,7 @@ export const routes: Routes = [
 
     {
         path: 'olvidar-contrasena',
-        loadChildren: () => import('../app/layout/auth/modules/olvidar-contrasena/olvidar-contrasena-module').then(m => m.OlvidarContrasenaModule),
+        loadChildren: () => import('./layout/auth/modules/olvidar-contrasena/olvidar-contrasena-module').then(m => m.OlvidarContrasenaModule),
         canLoad: [LoginGuard]
     },
     {
@@ -44,5 +47,14 @@ export const routes: Routes = [
         ]
     },
 
+    {
+        path: '',
+        component: HomeNormal,
+        canActivate: [NormalGuard],
+        children: [
+            // Carga el módulo de 'home-admin'
+            { path: 'inicio', loadChildren: () => import('./layout/normal/modules/normal/normal-module').then(m => m.NormalModule) },
+        ]
+    },
 
 ];

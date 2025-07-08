@@ -1,7 +1,7 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { LoginRoutingModule } from "./login-routing-module";
-import { Login } from "../../components/login/login"; // Esto está bien si es el componente
+import { Login } from "../../components/login/login";
 
 @NgModule({
     declarations: [
