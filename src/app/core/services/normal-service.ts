@@ -21,8 +21,12 @@ export class NormalService {
   listarSuspendido(): Observable<any> {
     return this.http.get<any>(`${baserUrl}/normal/listar/suspendido`);
   }
+
   registrar(normal: Normal): Observable<any> {
     return this.http.post<any>(`${baserUrl}/normal/guardar-normal`, normal);  // La URL debe ser cerrada adecuadamente
   }
 
+  listarPorUsername(username: string): Observable<Normal[]> {
+    return this.http.get<Normal[]>(`${baserUrl}/normal/listar/${username}`);
+  }
 }
