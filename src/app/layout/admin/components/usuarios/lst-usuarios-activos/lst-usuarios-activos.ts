@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
 import { Table } from "../../../../../shared/components/table/table";
+import { MatDialog } from '@angular/material/dialog';
+import { ModalEliminacion } from '../../../../../shared/components/modal/modal-eliminacion/modal-eliminacion';
+import { LoginService } from '../../../../../core/services/login-service';
+import { AdminService } from '../../../../../core/services/admin-service';
 
 
 @Component({
@@ -13,18 +17,11 @@ export class LstUsuariosActivos {
   iconoUsuarios: string = 'fas fa-users';
   tituloUsuarios: string = 'Mantenimiento de Usuarios';
   columnas: string[] = ['Nombre', 'Apellido', 'Correo', 'Telefono', 'Edad'];
-datos = [
-  { Nombre: 'Juan', Apellido: 'Pérez', Correo: 'juan.perez@example.com', Telefono: '987654321', Edad: 28 },
-  { Nombre: 'María', Apellido: 'Gómez', Correo: 'maria.gomez@example.com', Telefono: '912345678', Edad: 32 },
-  { Nombre: 'Luis', Apellido: 'Ramírez', Correo: 'luis.ramirez@example.com', Telefono: '976543210', Edad: 25 },
-  { Nombre: 'Ana', Apellido: 'Torres', Correo: 'ana.torres@example.com', Telefono: '998877665', Edad: 29 },
-  { Nombre: 'Carlos', Apellido: 'Fernández', Correo: 'carlos.fernandez@example.com', Telefono: '955667788', Edad: 34 },
-  { Nombre: 'Sofía', Apellido: 'Castro', Correo: 'sofia.castro@example.com', Telefono: '944332211', Edad: 27 },
-  { Nombre: 'Diego', Apellido: 'Vega', Correo: 'diego.vega@example.com', Telefono: '933221144', Edad: 31 },
-  { Nombre: 'Lucía', Apellido: 'Navarro', Correo: 'lucia.navarro@example.com', Telefono: '922334455', Edad: 30 },
-  { Nombre: 'Pedro', Apellido: 'Ortega', Correo: 'pedro.ortega@example.com', Telefono: '911223344', Edad: 26 },
-  { Nombre: 'Valeria', Apellido: 'Ruiz', Correo: 'valeria.ruiz@example.com', Telefono: '988776655', Edad: 33 }
-];
+  constructor(
+    private login: LoginService, private admin: AdminService,
+    private dialog: MatDialog,) { }
+
+  datos: any[] = [];
 
   botonesConfig = {
     registrar: true,
@@ -35,8 +32,27 @@ datos = [
     exportarPDF: true,
     exportarExcel: true
   };
+  user: any = null;
+  ngOnInit() {
+    this.user = this.login.getUser();
+    this.listarUsuarios("hola");
+  }
+  listarUsuarios(username: string) {
+    console.log('Listar Usuarios', username);
+    this.admin.listarAdminsActivosExcluyendo(username).subscribe({
+      next: (respuesta: any[]) => {
+        this.datos = respuesta;
+        console.log('Datos obtenidos:', this.datos);
+      },
+      error: (error) => {
+        console.error('Error al listar usuarios:', error);
+      }
+    });
+  }
 
- registrar() {
+
+
+  registrar() {
     console.log('Registrar Marca');
   }
 
@@ -48,11 +64,117 @@ datos = [
     console.log('Actualizar Marca', fila);
   }
 
-  eliminar(id: number) {
-    console.log('Eliminar Marca ID:', id);
+  eliminar(fila: any): void {
+    console.log('Imprimir Marca', fila);
+    const dialogEliminar = this.dialog.open(ModalEliminacion, {
+      disableClose: true,
+      width: '400px',
+      height: '275px',
+      data: {
+        fila,
+        titulo: 'Restaurar',
+        subtitulo: `¿Deseas restaurar el usuario ${fila.Nombre} ? `
+      },
+    });
+  }
+  imprimir(fila: any) {
+    const usuario = fila;
+
+    if (usuario) {
+      const iframe = document.createElement('iframe');
+      iframe.style.position = 'absolute';
+      iframe.style.width = '0px';
+      iframe.style.height = '0px';
+      iframe.style.border = 'none';
+      document.body.appendChild(iframe);
+
+      const iframeDoc = iframe.contentWindow?.document;
+
+      const contenidoHTML = `
+      <div style="padding: 40px; font-family: 'Segoe UI', Tahoma, sans-serif; color: #333;">
+
+
+        <h1 style="text-align: center; color: #006699; margin-top: 40px; text-transform: uppercase; ">Constancia de Registro de Administrador</h1>
+
+        <p style="margin-top: 30px; text-align: justify; font-size: 16px;">
+          La presente constancia certifica que el trabajador descrito a continuación ha sido formalmente registrado en el sistema institucional de <strong>SOCIAL LIKE S.A.C.</strong>,
+          desempeñando el cargo de <strong>Administrador</strong>. Esta constancia forma parte del expediente laboral del colaborador y valida la información vigente hasta la fecha de emisión.
+        </p>
+
+        <table style="width: 100%; border-collapse: collapse; margin-top: 30px; font-size: 15px;">
+          <tr style="background-color: #f0f4f8;">
+            <td style="padding: 10px; font-weight: bold; width: 30%; border: 1px solid #ccc;">Nombre completo:</td>
+            <td style="padding: 10px; border: 1px solid #ccc;">${usuario.Nombre} ${usuario.Apellido}</td>
+          </tr>
+          <tr>
+            <td style="padding: 10px; font-weight: bold; border: 1px solid #ccc;">Edad:</td>
+            <td style="padding: 10px; border: 1px solid #ccc;">${usuario.Edad} años</td>
+          </tr>
+          <tr style="background-color: #f0f4f8;">
+            <td style="padding: 10px; font-weight: bold; border: 1px solid #ccc;">Usuario asignado:</td>
+            <td style="padding: 10px; border: 1px solid #ccc;">${usuario.Usuario}</td>
+          </tr>
+          <tr>
+            <td style="padding: 10px; font-weight: bold; border: 1px solid #ccc;">Correo electrónico:</td>
+            <td style="padding: 10px; border: 1px solid #ccc;">${usuario.Correo}</td>
+          </tr>
+          <tr style="background-color: #f0f4f8;">
+            <td style="padding: 10px; font-weight: bold; border: 1px solid #ccc;">Teléfono:</td>
+            <td style="padding: 10px; border: 1px solid #ccc;">${usuario.Telefono}</td>
+          </tr>
+          <tr>
+            <td style="padding: 10px; font-weight: bold; border: 1px solid #ccc;">Fecha de nacimiento:</td>
+            <td style="padding: 10px; border: 1px solid #ccc;">${usuario.FechaNacimiento}</td>
+          </tr>
+
+          <tr>
+            <td style="padding: 10px; font-weight: bold; border: 1px solid #ccc;">Código interno:</td>
+            <td style="padding: 10px; border: 1px solid #ccc;">${usuario.Codigo}</td>
+          </tr>
+          <tr style="background-color: #f0f4f8;">
+            <td style="padding: 10px; font-weight: bold; border: 1px solid #ccc;">Rol asignado:</td>
+            <td style="padding: 10px; border: 1px solid #ccc;">Administrador</td>
+          </tr>
+        </table>
+
+        <p style="margin-top: 40px; font-size: 15px; text-align: justify;">
+          Esta constancia es generada automáticamente por el sistema institucional de <strong>SOCIAL LIKE S.A.C.</strong> y será válida únicamente para procesos internos. Para cambios o correcciones en los datos, comuníquese con el área correspondiente.
+        </p>
+
+        <div style="margin-top: 60px; display: flex; justify-content: space-between; font-size: 14px;">
+          <div style="text-align: center; width: 45%;">
+            <br>
+            <p style="border-top: 1px solid #000; width: 80%; margin: 0 auto;"></p>
+            <p style="margin-top: 5px;"><strong>Responsable de RRHH</strong></p>
+          </div>
+
+          <div style="text-align: center; width: 45%;">
+            <p>&nbsp;</p>
+            <br>
+            <p style="border-top: 1px solid #000; width: 80%; margin: 0 auto;"></p>
+            <p style="margin-top: 5px;"><strong>${usuario.Nombre} ${usuario.Apellido}</strong><br>Administrador</p>
+          </div>
+        </div>
+      </div>
+    `;
+
+      iframeDoc?.open();
+      iframeDoc?.write(`
+      <html>
+        <head>
+          <title>Constancia de Registro - SOCIAL LIKE</title>
+        </head>
+        <body>
+          ${contenidoHTML}
+        </body>
+      </html>
+    `);
+      iframeDoc?.close();
+      iframe.contentWindow?.print();
+      document.body.removeChild(iframe);
+    }
   }
 
-  imprimir(fila: any) {
-    console.log('Imprimir Marca', fila);
-  }
+
+
 }

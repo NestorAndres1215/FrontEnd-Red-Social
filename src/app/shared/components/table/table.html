@@ -20,8 +20,7 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let fila of datos | paginate: { itemsPerPage: itemsPorPagina, currentPage: paginaActual }"
-                        class="table-row animate__animated animate__fadeInUp"
-                        [style.animation-delay]="getAnimationDelay()">
+                        class="table-row animate__animated animate__fadeInUp">
                         <td *ngFor="let col of columnas">{{ fila[col] }}</td>
                         <td *ngIf="hasActionButtons()" class="actions-column">
                             <div class="action-buttons">
@@ -36,7 +35,7 @@
                                 </button>
 
                                 <button *ngIf="botonesConfig.eliminar" class="btn btn-delete hover-pulse"
-                                    (click)="onEliminar(fila.id)" title="Eliminar">
+                                    (click)="onEliminar(fila)" title="Eliminar">
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
 

@@ -1,0 +1,23 @@
+<div class="modal-eliminacion">
+    <div class="card">
+        <div class="card-header">
+            <h2>{{titulo}}</h2>
+        </div>
+        <div class="card-body">
+            <p [innerHTML]="getHTML()"></p>
+            <mat-form-field *ngIf="razon != undefined && razon.trim() != ''">
+                <div>
+                    <input #input [placeholder]="razon" />
+                </div>
+            </mat-form-field>
+            <div class="button-group">
+                <button type="button" class="btn confirm" (click)="close('CONFIRMAR')">
+                    <i class="fas fa-check"></i> Confirmar
+                </button>
+                <button type="button" class="btn cancel" (click)="close('CANCELAR')">
+                    <i class="fas fa-times"></i> Cancelar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

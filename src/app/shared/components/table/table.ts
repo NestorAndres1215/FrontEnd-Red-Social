@@ -4,7 +4,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 
 @Component({
   selector: 'app-table',
-  imports: [CommonModule,NgxPaginationModule],
+  imports: [CommonModule, NgxPaginationModule],
   templateUrl: './table.html',
   styleUrl: './table.css'
 })
@@ -23,11 +23,11 @@ export class Table {
       this.botonesConfig.ver;
   }
   paginaActual: number = 1;  // Página actual
-  itemsPorPagina: number = 5; // Cantidad de elementos por página
+  itemsPorPagina: number = 10; // Cantidad de elementos por página
 
   @Input() onVer!: (fila: any) => void;
   @Input() onActualizar!: (fila: any) => void;
-  @Input() onEliminar!: (id: number) => void;
+  @Input() onEliminar!: (fila: any) => void;
   @Input() onImprimir!: (fila: any) => void;
   @Input() onExportarPDF!: () => void;
   @Input() onExportarExcel!: () => void;
@@ -37,7 +37,7 @@ export class Table {
   getAnimationDuration(): number {
     return Math.floor(Math.random() * 1000) + 500;
   }
-  
+
   exportarPDF() {
   }
 }
