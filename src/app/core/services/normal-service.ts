@@ -29,4 +29,6 @@ export class NormalService {
   listarPorUsername(username: string): Observable<Normal[]> {
     return this.http.get<Normal[]>(`${baserUrl}/normal/listar/${username}`);
   }
+
+
 }

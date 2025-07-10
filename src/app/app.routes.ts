@@ -42,10 +42,11 @@ export const routes: Routes = [
         component: HomeAdmin,
         canActivate: [AdminGuard],
         children: [
-            // Carga el módulo de 'home-admin'
             { path: 'administrador', loadChildren: () => import('./layout/admin/modules/admin/admin-module').then(m => m.AdminModule) },
+            { path: 'usuarios/activos', loadChildren: () => import('./layout/admin/modules/usuarios/usuarios-module').then(m => m.UsuariosModule) }
         ]
     },
+
 
     {
         path: '',

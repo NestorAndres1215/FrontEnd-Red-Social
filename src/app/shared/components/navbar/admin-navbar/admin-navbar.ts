@@ -56,7 +56,22 @@ export class AdminNavbar {
     )
 
   }
-
+    tieneSubMenu(menuItem: any): boolean {
+    return (
+      this.menu2FiltradoPorCategoria[menuItem.categoria] &&
+      this.menu2FiltradoPorCategoria[menuItem.categoria].length > 0
+    );
+  }
+  handleClick(menuItem: any): void {
+    if (this.tieneSubMenu(menuItem)) {
+      menuItem.mostrarSubMenu = !menuItem.mostrarSubMenu;
+    } else {
+      this.irARuta(menuItem.ruta);
+    }
+  }
+    irARuta(ruta: string): void {
+    this.router.navigateByUrl('/' + ruta);
+  }
   async listarRolMenu() {
     this.menu.listarMenuCodigo("0001").subscribe(data => {
       this.rolMenu = data
