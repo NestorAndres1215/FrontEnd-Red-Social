@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="content-area">
+    <div class="card-header">
+      <h1 style="flex: 1;">{{titulo}}</h1>
+
+    </div>
+    <div class="card-body">
+      <div class="persona">
+        <div *ngFor="let col of columnas">
+          <strong>{{ col }}:</strong> {{ datos[col] }}
+        </div>
+      </div>
+
+
+
+    </div>
+  </div>
+</div>

@@ -1,9 +1,8 @@
-<div class="modal-eliminacion">
-    <div class="card">
-        <div class="card-header">
-            <h2>{{titulo}}</h2>
-        </div>
-        <div class="card-body">
+<div class="content-area">
+    <div class="card-header">
+        <h2>{{titulo}}</h2>
+    </div>
+     <div class="card-body">
             <p [innerHTML]="getHTML()"></p>
             <mat-form-field *ngIf="razon != undefined && razon.trim() != ''">
                 <div>
@@ -19,5 +18,4 @@
                 </button>
             </div>
         </div>
-    </div>
 </div>

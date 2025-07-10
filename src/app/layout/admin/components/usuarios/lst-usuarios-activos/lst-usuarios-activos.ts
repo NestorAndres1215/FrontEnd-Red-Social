@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ModalEliminacion } from '../../../../../shared/components/modal/modal-eliminacion/modal-eliminacion';
 import { LoginService } from '../../../../../core/services/login-service';
 import { AdminService } from '../../../../../core/services/admin-service';
+import { ModalVisor } from '../../../../../shared/components/modal/modal-visor/modal-visor';
 
 
 @Component({
@@ -16,13 +17,13 @@ export class LstUsuariosActivos {
 
   iconoUsuarios: string = 'fas fa-users';
   tituloUsuarios: string = 'Mantenimiento de Usuarios';
-  columnas: string[] = ['Nombre', 'Apellido', 'Correo', 'Telefono', 'Edad'];
+  columnas: string[] = ['Usuario','Nombre', 'Apellido', 'Correo', 'Telefono', 'Edad'];
   constructor(
     private login: LoginService, private admin: AdminService,
     private dialog: MatDialog,) { }
 
   datos: any[] = [];
-
+  
   botonesConfig = {
     registrar: true,
     ver: true,
@@ -58,6 +59,16 @@ export class LstUsuariosActivos {
 
   ver(fila: any) {
     console.log('Ver Marca', fila);
+    const dialogRef = this.dialog.open(ModalVisor, {
+      disableClose: true,
+      width: '1050px',
+      height: '350px',
+      data: {
+        titulo: 'Visualización de Usuario',
+        columnas: this.columnas,
+        fila: fila,
+      }
+    });
   }
 
   actualizar(fila: any) {
@@ -69,7 +80,7 @@ export class LstUsuariosActivos {
     const dialogEliminar = this.dialog.open(ModalEliminacion, {
       disableClose: true,
       width: '400px',
-      height: '275px',
+      height: '305px',
       data: {
         fila,
         titulo: 'Restaurar',
@@ -77,6 +88,7 @@ export class LstUsuariosActivos {
       },
     });
   }
+
   imprimir(fila: any) {
     const usuario = fila;
 
@@ -149,7 +161,7 @@ export class LstUsuariosActivos {
           </div>
 
           <div style="text-align: center; width: 45%;">
-            <p>&nbsp;</p>
+           
             <br>
             <p style="border-top: 1px solid #000; width: 80%; margin: 0 auto;"></p>
             <p style="margin-top: 5px;"><strong>${usuario.Nombre} ${usuario.Apellido}</strong><br>Administrador</p>
