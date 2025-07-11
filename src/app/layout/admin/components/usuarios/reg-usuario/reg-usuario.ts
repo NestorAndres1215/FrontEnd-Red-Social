@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { LstUsuariosActivos } from '../lst-usuarios-activos/lst-usuarios-activos';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { FormsModule, ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MensajeService } from '../../../../../core/services/mensaje-service';
 import { Admin } from '../../../../../core/models/admin';
+import { AdminService } from '../../../../../core/services/admin-service';
 
 
 @Component({
@@ -17,7 +18,7 @@ export class RegUsuario implements OnInit {
   edad!: number;
   maxDate!: string;
   minDate!: string;
-   showPassword = false;
+  showPassword = false;
 
   togglePassword(): void {
     this.showPassword = !this.showPassword;
@@ -26,6 +27,8 @@ export class RegUsuario implements OnInit {
   constructor(
     private dialogRe: MatDialogRef<LstUsuariosActivos>,
     private formBuilder: UntypedFormBuilder,
+    private dialog: MatDialog,
+    private adminService: AdminService,
     private mensaje: MensajeService
   ) { }
 
@@ -100,8 +103,20 @@ export class RegUsuario implements OnInit {
         fechaNacimiento: this.formulario.get('fechaNacimiento')?.value,
         username: this.formulario.get('username')?.value,
         password: this.formulario.get('password')?.value,
+        perfil: ''
       }
       console.log(objAdmin);
+      this.adminService.registrar(objAdmin).subscribe({
+        next: (respuesta) => {
+
+          this.mensaje.MostrarMensajeExito("Se Registro Correctamente los datos");
+          this.dialog.closeAll(); // Cerrar todos los diálogos
+        },
+        error: (error) => {
+          console.error('Error al registrar', error);
+
+        }
+      });
     } else {
       this.mensaje.MostrarMensaje("Formulario Vacio")
 

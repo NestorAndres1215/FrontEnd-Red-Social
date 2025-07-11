@@ -18,6 +18,7 @@ export class AdminService {
 
   
   registrar(admin: Admin): Observable<any> {
+    console.log('Registrar Admin', admin);
     return this.http.post<any>(`${baserUrl}/admin/guardar-admin`, admin);  // La URL debe ser cerrada adecuadamente
   }
 }

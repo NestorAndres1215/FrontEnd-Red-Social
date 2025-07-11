@@ -40,7 +40,7 @@ export class LstUsuariosActivos {
     this.user = this.login.getUser();
     this.username = this.user.username;
 
-    this.listarUsuarios("hola");
+    this.listarUsuarios(this.username);
   }
   listarUsuarios(username: string) {
     console.log('Listar Usuarios', username);
@@ -61,7 +61,7 @@ export class LstUsuariosActivos {
     console.log(this.username);
     const dialogRef = this.dialog.open(RegUsuario, {
       disableClose: true,
-     panelClass: 'custom-dialog'
+      panelClass: 'custom-dialog'
     });
 
     dialogRef.afterClosed().subscribe(data => {
@@ -73,7 +73,7 @@ export class LstUsuariosActivos {
   ver(fila: any) {
     console.log('Ver Marca', fila);
     const dialogRef = this.dialog.open(ModalVisor, {
-    
+
       width: '1050px',
       height: '450px',
       data: {
