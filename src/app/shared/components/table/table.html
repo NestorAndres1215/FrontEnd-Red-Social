@@ -1,10 +1,10 @@
 <div class="container">
     <div class="header">
-        <div class="card-header">
-            <h1>
-                <i [class]="icono"></i> {{ titulo }}
-            </h1>
-        </div>
+<div class="card-header text-center  rounded">
+    <h1 class="h3 h1-sm">
+      <i [class]="icono"></i> {{ titulo }}
+    </h1>
+  </div>
     </div>
     <div class="content-area">
         <button *ngIf="botonesConfig.registrar" class="btn btn-add hover-grow" (click)="onRegistrar()">

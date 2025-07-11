@@ -113,7 +113,7 @@ export class RegUsuario implements OnInit {
           this.dialog.closeAll(); // Cerrar todos los diálogos
         },
         error: (error) => {
-          console.error('Error al registrar', error);
+           this.mensaje.MostrarBodyError(error); // Manejar el error si ocurre
 
         }
       });
