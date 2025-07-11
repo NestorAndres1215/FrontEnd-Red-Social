@@ -1,0 +1,74 @@
+<div class="container">
+    <div class="content-area">
+        <div class="card-header">
+            <h1>Registro de Usuario</h1>
+        </div>
+        <div class="card-body">
+            <div class="persona">
+                <form [formGroup]="formulario">
+                    <div class="form-row ">
+                        <div class="col-md-4 mb-3 form-group">
+                            <label for="nombre">Nombre</label>
+                            <input formControlName="nombre" type="text" id="nombre" name="nombre"
+                                placeholder="Ingresa tu nombre" required>
+                        </div>
+                        <div class="col-md-4 mb-3 form-group">
+                            <label for="apellido"> Apellido</label>
+                            <input formControlName="apellido" type="text" id="apellido" name="apellido"
+                                placeholder="Ingresa tu apellido" required>
+                        </div>
+                        <div class="col-md-4 mb-3 form-group">
+                            <label for="telefono">Teléfono</label>
+                            <input type="tel" formControlName="telefono" id="telefono" class="form-control"
+                                placeholder="999999999" required>
+                        </div>
+
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-md-4 mb-3 form-group">
+                            <label for="username">Usuario</label>
+                            <input type="text" formControlName="username" id="username" placeholder="Ingresa tu usuario"
+                                required>
+                        </div>
+                        <div class="col-md-4 mb-3 form-group">
+                            <label for="password"> Contraseña</label>
+                            <div class="password-group">
+                                <input formControlName="password" [type]="showPassword ? 'text' : 'password'"
+                                    type="password" id="password" name="password" placeholder="Ingresa tu contraseña"
+                                    required>
+                                <i class="fas password-toggle" [class.fa-eye]="!showPassword"
+                                    [class.fa-eye-slash]="showPassword" (click)="togglePassword()"></i>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3 form-group">
+                            <label for="correo">Correo</label>
+                            <input type="email" formControlName="correo" id="correo" class="form-control"
+                                placeholder="ejemplo@correo.com" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="extra-large">
+                            <label for="fechaNacimiento">Fecha de Nacimiento</label>
+                            <input formControlName="fechaNacimiento" type="date" id="fechaNacimiento" [min]="minDate"
+                                [max]="maxDate" name="fechaNacimiento" required />
+                        </div>
+                    </div>
+                    <div class="form-row button-row">
+                        <div class="form-group">
+
+                            <button type="button" class="btn confirm" (click)="operar()">
+                                <i class="fas fa-check"></i> Confirmar
+                            </button>
+                        </div>
+                        <div class="form-group">
+                            <button type="button" class="btn cancel close-button" (click)="cerrar()">
+                                <i class="fas fa-times"></i> Cancelar
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

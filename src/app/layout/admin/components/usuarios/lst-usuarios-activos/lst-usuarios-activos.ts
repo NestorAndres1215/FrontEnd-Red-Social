@@ -5,6 +5,7 @@ import { ModalEliminacion } from '../../../../../shared/components/modal/modal-e
 import { LoginService } from '../../../../../core/services/login-service';
 import { AdminService } from '../../../../../core/services/admin-service';
 import { ModalVisor } from '../../../../../shared/components/modal/modal-visor/modal-visor';
+import { RegUsuario } from '../reg-usuario/reg-usuario';
 
 
 @Component({
@@ -17,13 +18,13 @@ export class LstUsuariosActivos {
 
   iconoUsuarios: string = 'fas fa-users';
   tituloUsuarios: string = 'Mantenimiento de Usuarios';
-  columnas: string[] = ['Usuario','Nombre', 'Apellido', 'Correo', 'Telefono', 'Edad'];
+  columnas: string[] = ['Usuario', 'Nombre', 'Apellido', 'Correo', 'Telefono', 'Edad'];
   constructor(
     private login: LoginService, private admin: AdminService,
     private dialog: MatDialog,) { }
 
   datos: any[] = [];
-  
+
   botonesConfig = {
     registrar: true,
     ver: true,
@@ -34,8 +35,11 @@ export class LstUsuariosActivos {
     exportarExcel: true
   };
   user: any = null;
+  username: string = '';
   ngOnInit() {
     this.user = this.login.getUser();
+    this.username = this.user.username;
+
     this.listarUsuarios("hola");
   }
   listarUsuarios(username: string) {
@@ -54,15 +58,24 @@ export class LstUsuariosActivos {
 
 
   registrar() {
-    console.log('Registrar Marca');
+    console.log(this.username);
+    const dialogRef = this.dialog.open(RegUsuario, {
+      disableClose: true,
+     panelClass: 'custom-dialog'
+    });
+
+    dialogRef.afterClosed().subscribe(data => {
+      this.listarUsuarios(this.username)
+    })
+
   }
 
   ver(fila: any) {
     console.log('Ver Marca', fila);
     const dialogRef = this.dialog.open(ModalVisor, {
-      disableClose: true,
+    
       width: '1050px',
-      height: '350px',
+      height: '450px',
       data: {
         titulo: 'Visualización de Usuario',
         columnas: this.columnas,
@@ -79,12 +92,12 @@ export class LstUsuariosActivos {
     console.log('Imprimir Marca', fila);
     const dialogEliminar = this.dialog.open(ModalEliminacion, {
       disableClose: true,
-      width: '400px',
-      height: '305px',
+      width: '700px',
+      height: '318px',
       data: {
         fila,
-        titulo: 'Restaurar',
-        subtitulo: `¿Deseas restaurar el usuario ${fila.Nombre} ? `
+        titulo: 'Desactivar Usuario',
+        subtitulo: `¿Deseas desactivar el usuario ${fila.Nombre} ? `
       },
     });
   }
