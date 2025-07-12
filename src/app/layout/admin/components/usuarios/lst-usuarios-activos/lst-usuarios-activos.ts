@@ -6,6 +6,7 @@ import { LoginService } from '../../../../../core/services/login-service';
 import { AdminService } from '../../../../../core/services/admin-service';
 import { ModalVisor } from '../../../../../shared/components/modal/modal-visor/modal-visor';
 import { RegUsuario } from '../reg-usuario/reg-usuario';
+import { EditUsuario } from '../edit-usuario/edit-usuario';
 
 
 @Component({
@@ -85,7 +86,14 @@ export class LstUsuariosActivos {
   }
 
   actualizar(fila: any) {
-    console.log('Actualizar Marca', fila);
+     const dialogRef = this.dialog.open(EditUsuario, {
+      disableClose: true,
+    panelClass: 'edit-modal'
+    });
+
+    dialogRef.afterClosed().subscribe(data => {
+      this.listarUsuarios(this.username)
+    })
   }
 
   eliminar(fila: any): void {

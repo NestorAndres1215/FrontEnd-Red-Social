@@ -87,6 +87,15 @@ export class RegUsuario implements OnInit {
     console.log(this.formulario.value);
     const fechaNacimiento = this.formulario.get('fechaNacimiento')?.value;
     if (fechaNacimiento) {
+      const fecha = new Date(fechaNacimiento);
+      const anio = fecha.getFullYear();
+
+      if (anio < 1980) {
+        this.mensaje.MostrarMensajeError('Ese año de nacimiento no es valido');
+        return;
+      }
+    }
+    if (fechaNacimiento) {
       this.edad = this.calcularEdad(fechaNacimiento);
     }
 
@@ -113,7 +122,7 @@ export class RegUsuario implements OnInit {
           this.dialog.closeAll(); // Cerrar todos los diálogos
         },
         error: (error) => {
-           this.mensaje.MostrarBodyError(error); // Manejar el error si ocurre
+          this.mensaje.MostrarBodyError(error); // Manejar el error si ocurre
 
         }
       });

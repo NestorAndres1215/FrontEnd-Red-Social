@@ -16,10 +16,15 @@ export class AdminService {
     return this.http.get<any[]>(`${baserUrl}/admin/listar/usuario/activo`, { params });
   }
 
-  
+
   registrar(admin: Admin): Observable<any> {
     console.log('Registrar Admin', admin);
     return this.http.post<any>(`${baserUrl}/admin/guardar-admin`, admin);  // La URL debe ser cerrada adecuadamente
+  }
+
+  actualizar(admin: Admin): Observable<any> {
+    console.log('Registrar Admin', admin);
+    return this.http.post<any>(`${baserUrl}/admin/actualizar-admin`, admin);  // La URL debe ser cerrada adecuadamente
   }
 }
 

@@ -5,19 +5,19 @@
         </div>
         <div class="card-body">
             <div class="persona">
-                <form [formGroup]="formulario">
+                <form [formGroup]="formulario" class="container ">
                     <div class="form-row ">
-                        <div class="col-md-4 mb-3 form-group">
+                        <div class="col-md-6 form-group">
                             <label for="nombre">Nombre</label>
                             <input formControlName="nombre" type="text" id="nombre" name="nombre"
                                 placeholder="Ingresa tu nombre" required>
                         </div>
-                        <div class="col-md-4 mb-3 form-group">
+                        <div class="col-md-6 form-group">
                             <label for="apellido"> Apellido</label>
                             <input formControlName="apellido" type="text" id="apellido" name="apellido"
                                 placeholder="Ingresa tu apellido" required>
                         </div>
-                        <div class="col-md-4 mb-3 form-group">
+                        <div class="col-md-6 form-group">
                             <label for="telefono">Teléfono</label>
                             <input type="tel" formControlName="telefono" id="telefono" class="form-control"
                                 placeholder="999999999" required>
@@ -54,15 +54,14 @@
                                 [max]="maxDate" name="fechaNacimiento" required />
                         </div>
                     </div>
-                    <div class="form-row button-row">
-                        <div class="form-group">
-
-                            <button type="button" class="btn confirm" (click)="operar()">
+                    <div class="row justify-content-center mt-4">
+                        <div class="col-12 col-md-auto mb-2 mb-md-0 text-center">
+                            <button type="button" class="btn confirm me-md-3" (click)="operar()">
                                 <i class="fas fa-check"></i> Confirmar
                             </button>
                         </div>
-                        <div class="form-group">
-                            <button type="button" class="btn cancel close-button" (click)="cerrar()">
+                        <div class="col-12 col-md-auto text-center">
+                            <button type="button" class="btn cancel" (click)="cerrar()">
                                 <i class="fas fa-times"></i> Cancelar
                             </button>
                         </div>
