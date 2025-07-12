@@ -86,9 +86,12 @@ export class LstUsuariosActivos {
   }
 
   actualizar(fila: any) {
-     const dialogRef = this.dialog.open(EditUsuario, {
+    const dialogRef = this.dialog.open(EditUsuario, {
       disableClose: true,
-    panelClass: 'edit-modal'
+      panelClass: 'edit-modal',
+      data: {
+        fila,
+      },
     });
 
     dialogRef.afterClosed().subscribe(data => {

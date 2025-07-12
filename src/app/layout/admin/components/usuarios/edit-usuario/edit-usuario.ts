@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Inject } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -11,14 +11,13 @@ import { MatTableDataSource } from '@angular/material/table';
   templateUrl: './edit-usuario.html',
   styleUrl: './edit-usuario.css'
 })
-export class EditUsuario {
-operar() {
-throw new Error('Method not implemented.');
-}
+export class EditUsuario implements OnInit {
+
   public formulario!: UntypedFormGroup;
   dataSource!: MatTableDataSource<any>;
   maxDate!: string;
   minDate!: string;
+  lista: any;
   constructor(
     private dialogRef: MatDialogRef<EditUsuario>,
     private router: Router,
@@ -30,6 +29,10 @@ throw new Error('Method not implemented.');
     public data: any,
   ) {
 
+  }
+  ngOnInit(): void {
+    this.lista = this.data.fila
+    console.log(this.lista)
   }
 
   cerrar() {
@@ -50,6 +53,8 @@ throw new Error('Method not implemented.');
     });
 
   }
-
+  operar() {
+    throw new Error('Method not implemented.');
+  }
 
 }
