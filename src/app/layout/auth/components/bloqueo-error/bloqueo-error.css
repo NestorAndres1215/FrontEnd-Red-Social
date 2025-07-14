@@ -1,0 +1,89 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom, #1e40af, #3b82f6);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    color: #fff;
+}
+
+.login-container {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    color: #000;
+}
+
+.login-container img {
+    height: 40px;
+    width: auto;
+}
+
+
+.logo h1 {
+    font-size: 32px;
+    color: #1e40af;
+    margin-bottom: 20px;
+}
+
+.login-container h2 {
+    font-size: 32px;
+    color: #1e40af;
+    margin-bottom: 20px;
+}
+
+.login-container p {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.email-info {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.login-button {
+    background-color: #1e40af;
+    color: white;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 25px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.login-button:hover {
+    background-color: #2563eb;
+    transform: scale(1.05);
+}
+
+
+.exit-link {
+    display: block;
+    margin-top: 15px;
+    font-size: 14px;
+    color: #fff;
+    text-decoration: none;
+    color: #1e40af;
+}
+
+.exit-link:hover {
+    text-decoration: underline;
+}

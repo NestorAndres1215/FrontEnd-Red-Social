@@ -2,12 +2,10 @@ import { LoginService } from '../services/login-service';
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { catchError, map, Observable, of } from 'rxjs';
-
 @Injectable({
   providedIn: 'root'
 })
-export class AdminGuard implements CanActivate {
-
+export class bloqueoGuard implements CanActivate {
   constructor(private loginService: LoginService, private router: Router) {
 
   }
@@ -15,24 +13,23 @@ export class AdminGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean | UrlTree> {
-    if (!this.loginService.isLoggedIn() || this.loginService.getUserRole() !== 'ADMIN') {
-      this.router.navigate(['/inicio']);
-      return of(false);
-    }
-
-    // Verificamos el estado del usuario desde el backend
     return this.loginService.getCurrentUser().pipe(
       map((user: any) => {
-        if (user.estado === 'BLOQUEADO') {
-          return this.router.parseUrl('/cuenta-bloqueada');
+        const estado = user.estado;
+        console.log('Estado desde el guard:', estado);
+
+        if (estado === 'BLOQUEADO') {
+          return this.router.parseUrl('/cuenta-bloqueada'); // ✅ redirige a cuenta bloqueada
         }
 
-        return true; // acceso permitido
+        return true; // ✅ permite si NO está bloqueado
       }),
-      catchError((error: any) => {
-        console.error('Error al obtener el usuario en AdministradorGuard:', error);
+      catchError((error) => {
+        console.error('Error al obtener usuario:', error);
         return of(this.router.parseUrl('/login'));
       })
     );
   }
-}
+
+
+};

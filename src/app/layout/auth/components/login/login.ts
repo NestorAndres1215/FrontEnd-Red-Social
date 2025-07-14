@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 import { LoginService } from '../../../../core/services/login-service';
 import { Router } from '@angular/router';
 import { MensajeService } from '../../../../core/services/mensaje-service';
+import { AdminService } from '../../../../core/services/admin-service';
 @Component({
   selector: 'app-login',
 
@@ -20,6 +21,7 @@ export class Login {
 
   constructor(
     private loginService: LoginService,
+    private adminService: AdminService,
     private router: Router,
     private mensaje: MensajeService) { }
   showPassword = false;
@@ -28,6 +30,7 @@ export class Login {
     this.showPassword = !this.showPassword;
   }
 
+  intentosFallidos: number = 0;
   formSubmit() {
     console.log(this.loginData)
     // Validar si el nombre de usuario está vacío o nulo
@@ -39,15 +42,7 @@ export class Login {
       });
       return;
     }
-    // Validar si el nombre de usuario tiene menos de 3 caracteres
-    if (this.loginData.username.trim().length < 3) {
-      Swal.fire({
-        icon: 'warning',
-        title: 'Nombre de usuario inválido',
-        text: 'El nombre de usuario debe tener al menos 3 caracteres.',
-      });
-      return;
-    }
+
 
     // Validar si la contraseña está vacía o nula
     if (this.loginData.password.trim() === '' || this.loginData.password.trim() === null) {
@@ -59,75 +54,158 @@ export class Login {
       return;
     }
 
-    // Validar si la contraseña tiene menos de 6 caracteres
-    if (this.loginData.password.trim().length < 6) {
-      Swal.fire({
-        icon: 'warning',
-        title: 'Contraseña inválida',
-        text: 'La contraseña debe tener al menos 6 caracteres.',
-      });
-      return;
-    }
+    this.intentosFallidos++;
 
-
-    // Realizar la llamada al servicio para generar el token
     this.loginService.generateToken(this.loginData).subscribe({
-      next: (data: any) => {
-        console.log(data.token);
+      next: async (data: any) => {
 
-        // Guardar el token en localStorage y en el servicio
+
+        if (this.intentosFallidos >= 10) {
+
+          const respuesta = await this.loginService.bloquearUsuario(this.loginData.username).toPromise();
+          console.log(respuesta)
+          Swal.fire({
+            icon: 'error',
+            title: 'Cuenta bloqueada',
+            text: 'Has superado el número máximo de intentos fallidos. Tu cuenta ha sido bloqueada. Por favor, espera o contacta con el administrador.',
+            confirmButtonText: 'Aceptar'
+          });
+          this.router.navigate(['cuenta-bloqueada']);
+
+          localStorage.setItem('Bloqueo', 'true');
+          console.log(localStorage.getItem('Bloqueo'));
+
+          return;
+
+        }
+
         localStorage.setItem('authToken', data.token);
-
         this.loginService.loginUser(data.token);
 
-        // Obtener el usuario actual después de iniciar sesión
+
         this.loginService.getCurrentUser().subscribe({
-          next: (user) => {
+          next: async (user) => {
             console.log(user)
             this.loginService.setUser(user);
-
-            // Redirigir según el rol del usuario
             const userRole = this.loginService.getUserRole();
-            console.log(userRole)
-            //            // Verificar el rol del usuario y redirigir a la página correspondiente
-            switch (userRole) {
-
-              case 'ADMIN':
-                this.router.navigate(['administrador']);
-                this.loginService.loginStatusSubjec.next(true);
-                Swal.fire({
-                  icon: 'success',
-                  title: '¡Bienvenido!',
-                  text: 'Bienvenido, Administrador.',
-                  timer: 2000,
-                  timerProgressBar: true,
-                });
-                break;
 
 
+            const estado = (user as any).estado;
 
-              case 'NORMAL':
-                this.router.navigate(['inicio']);
-                this.loginService.loginStatusSubjec.next(true);
-                Swal.fire({
-                  icon: 'success',
-                  title: '¡Bienvenido!',
-                  text: 'Bienvenido, Profesor.',
-                  timer: 2000,
-                  timerProgressBar: true,
-                });
-                break;
 
-              default:
-                // Cerrar sesión si el rol no es válido
-                this.loginService.logout();
+            if (estado == "BLOQUEADO") {
+              console.log("ESTADO BLOQUEADO")
+              this.router.navigate(['cuenta-bloqueada']);
+            }
+            else if (estado == "ACTIVO") {
+              console.log(userRole)
+              switch (userRole) {
+                case 'ADMIN': {
+                  this.router.navigate(['administrador']);
+                  this.loginService.loginStatusSubjec.next(true);
+                  Swal.fire({
+                    icon: 'success',
+                    title: '¡Bienvenido!',
+                    text: 'Bienvenido, Administrador.',
+                    timer: 2000,
+                    timerProgressBar: true,
+                  });
+                  break;
+                }
+
+                case 'NORMAL': {
+                  this.router.navigate(['inicio']);
+                  this.loginService.loginStatusSubjec.next(true);
+                  Swal.fire({
+                    icon: 'success',
+                    title: '¡Bienvenido!',
+                    text: 'Bienvenido, Profesor.',
+                    timer: 2000,
+                    timerProgressBar: true,
+                  });
+                  break;
+                }
+
+
+                default: {
+                  // Cerrar sesión si el rol no es válido
+                  this.loginService.logout();
+                  Swal.fire({
+                    icon: 'error',
+                    title: 'Acceso denegado',
+                    text: 'Rol no reconocido. Cierre de sesión.',
+                    confirmButtonText: 'Aceptar'
+                  });
+                }
+              }
+            }
+            else if (estado == "INACTIVO") {
+
+              const codigo = (user as any).codigo;
+              const respuesta = await this.adminService.activarAdmin(codigo).toPromise();
+              if (respuesta == null) {
                 Swal.fire({
                   icon: 'error',
-                  title: 'Acceso denegado',
-                  text: 'Rol no reconocido. Cierre de sesión.',
-                  confirmButtonText: 'Aceptar'
+                  title: 'Algo salió mal',
+                  text: 'No pudimos activar tu cuenta en este momento. Por favor, intenta nuevamente más tarde.',
+                  confirmButtonText: 'Entendido'
                 });
+                this.loginService.logout();
+                return;
+              }
 
+              switch (userRole) {
+
+                case 'ADMIN': {
+                  this.router.navigate(['administrador']);
+                  this.loginService.loginStatusSubjec.next(true);
+                  Swal.fire({
+                    icon: 'success',
+                    title: 'Cuenta activada correctamente',
+                    text: 'Su cuenta ha sido reactivada con éxito. Bienvenido nuevamente al sistema.',
+                    timer: 2000,
+                    timerProgressBar: true,
+                  });
+                  break;
+                }
+
+
+                case 'NORMAL': {
+                  this.router.navigate(['inicio']);
+                  this.loginService.loginStatusSubjec.next(true);
+                  Swal.fire({
+                    icon: 'success',
+                    title: '¡Todo listo!',
+                    text: 'Tu cuenta ha sido activada con éxito. ¡Bienvenido de nuevo!',
+                    timer: 2000,
+                    timerProgressBar: true,
+                  });
+                  break;
+                }
+                default: {
+                  this.loginService.logout();
+                  Swal.fire({
+                    icon: 'error',
+                    title: 'Acceso denegado',
+                    text: 'Rol no reconocido. Cierre de sesión.',
+                    confirmButtonText: 'Aceptar'
+                  });
+                }
+
+              }
+
+            }
+            else if (estado == "SUPENDIDO") {
+
+            }
+            else if (estado == "PENDIENTE") {
+
+            }
+            else if (estado == "INHABILITADO") {
+
+            }
+            else {
+              console.warn("Estado no reconocido:", estado);
             }
           },
           error: (error) => {
@@ -138,11 +216,26 @@ export class Login {
           }
         });
       },
-      error: (error) => {
-        // Manejar error en la generación del token
-        console.error('Error al iniciar sesión:', error);
-        this.mensaje.MostrarBodyError(error);
 
+      error: (error) => {
+
+
+
+        // Manejar error en la generación del token
+        if (this.intentosFallidos >= 4) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Demasiados intentos fallidos',
+            text: 'Has superado el número máximo de intentos. Por favor, inténtalo más tarde.',
+            confirmButtonText: 'Aceptar'
+          });
+
+
+          return;
+
+        }
+        this.mensaje.MostrarBodyError(error);
+        console.log(error)
       }
     });
   }

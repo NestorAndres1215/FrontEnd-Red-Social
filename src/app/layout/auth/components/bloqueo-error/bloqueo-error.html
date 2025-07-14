@@ -1,0 +1,17 @@
+<body>
+    <div class="login-container">
+        <div class="logo">
+            <div class="logo-icon">
+                <img src="/img/logo/logo_original.png" alt="SocialLike Logo" />
+            </div>
+            <h1>SocialLike</h1>
+        </div>
+        <h2>Hemos detectado un intento de inicio de sesión inusual</h2>
+        <p>Para proteger tu cuenta, te enviaremos un código de seguridad para verificar tu identidad.</p>
+        <div class="email-info">
+            Dirección de correo electrónico: {{correoEnmascarado}}
+        </div>
+        <button class="login-button"(click)="enviar()">Continuar</button>
+        <a href="login" class="exit-link"(click)="logout()">Salir</a>
+    </div>
+</body>

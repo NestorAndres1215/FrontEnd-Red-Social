@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import baserUrl from '../interceptors/helper';
 
 @Injectable({
@@ -63,6 +63,8 @@ export class LoginService {
     return localStorage.getItem('token');
   }
 
+
+
   // Método para guardar al usuario en localStorage
   public setUser(user: any) {
     localStorage.setItem('user', JSON.stringify(user));
@@ -84,5 +86,10 @@ export class LoginService {
   public getUserRole() {
     let user = this.getUser();
     return user?.authorities?.[0]?.authority;
+  }
+
+
+  bloquearUsuario(username: string): Observable<any> {
+    return this.http.delete(`${baserUrl}/auth/usuario/bloquear/${username}`);
   }
 }

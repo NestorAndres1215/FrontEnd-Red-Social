@@ -1,0 +1,28 @@
+<body>
+    <div class="login-container">
+        <div class="logo">
+            <div class="logo-icon">
+                <img src="/img/logo/logo_original.png" alt="SocialLike Logo" />
+            </div>
+            <h1>SocialLike</h1>
+        </div>
+        <h2>Introduce tu código de seguridad</h2>
+        <p>Introduce el código de seis dígitos que hemos enviado a la dirección de correo electrónico
+
+        </p>
+<div class="code-input">
+  <input #digit1 type="text" maxlength="1" class="code-digit" (input)="autoFocusNext($event, digit2)"> -
+  <input #digit2 type="text" maxlength="1" class="code-digit" (input)="autoFocusNext($event, digit3)"> -
+  <input #digit3 type="text" maxlength="1" class="code-digit" (input)="autoFocusNext($event, digit4)"> -
+  <input #digit4 type="text" maxlength="1" class="code-digit" (input)="autoFocusNext($event, digit5)"> -
+  <input #digit5 type="text" maxlength="1" class="code-digit" (input)="autoFocusNext($event, digit6)"> -
+  <input #digit6 type="text" maxlength="1" class="code-digit">
+</div>
+
+<button class="continue-button" (click)="enviarCodigo(digit1.value, digit2.value, digit3.value, digit4.value, digit5.value, digit6.value)">
+  Enviar
+</button>
+        <p class="resend-info">¿No has recibido el código? <a href="#" class="resend-link">Obtén uno nuevo.</a></p>
+        <a href="#" class="exit-link">Volver</a>
+    </div>
+</body>

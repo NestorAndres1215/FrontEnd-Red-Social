@@ -16,15 +16,25 @@ export class AdminService {
     return this.http.get<any[]>(`${baserUrl}/admin/listar/usuario/activo`, { params });
   }
 
-
   registrar(admin: Admin): Observable<any> {
-    console.log('Registrar Admin', admin);
-    return this.http.post<any>(`${baserUrl}/admin/guardar-admin`, admin);  // La URL debe ser cerrada adecuadamente
+    return this.http.post<any>(`${baserUrl}/admin/guardar-admin`, admin);
   }
 
   actualizar(admin: Admin): Observable<any> {
-    console.log('Registrar Admin', admin);
-    return this.http.post<any>(`${baserUrl}/admin/actualizar-admin`, admin);  // La URL debe ser cerrada adecuadamente
+    return this.http.post<any>(`${baserUrl}/admin/actualizar-admin`, admin);
+  }
+
+  desactivarAdmin(codigo: string): Observable<any> {
+    return this.http.delete(`${baserUrl}/admin/desactivar/${codigo}`);
+  }
+
+  activarAdmin(codigo: string): Observable<any> {
+    return this.http.delete(`${baserUrl}/admin/usuario/activar/${codigo}`);
+  }
+
+
+  bloquearAdmin(codigo: string): Observable<any> {
+    return this.http.delete(`${baserUrl}/admin/usuario/bloquear/${codigo}`);
   }
 }
 

@@ -18,6 +18,16 @@ export const routes: Routes = [
         loadChildren: () => import('./layout/auth/modules/registro-auth/registro-auth-module').then(m => m.RegistroAuthModule),
         canLoad: [LoginGuard]
     },
+    {
+        path: 'cuenta-bloqueada',
+        loadChildren: () => import('./layout/auth/modules/bloqueo-error/bloqueo-error-module').then(m => m.BloqueoErrorModule),
+    //    canLoad: [LoginGuard]
+    },
+        {
+        path: 'codigo-verificacion',
+        loadChildren: () => import('./layout/auth/modules/codigo-verificacion/codigo-verificacion-module').then(m => m.CodigoVerificacionModule),
+    //    canLoad: [LoginGuard]
+    },
     /*
     {
         path: 'servicio-ayuda',
