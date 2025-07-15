@@ -92,4 +92,11 @@ export class LoginService {
   bloquearUsuario(username: string): Observable<any> {
     return this.http.delete(`${baserUrl}/auth/usuario/bloquear/${username}`);
   }
+
+  suspenderUsuario(codigo: string, rol: string): Observable<any> {
+    return this.http.delete(`${baserUrl}/auth/usuario/suspender/${codigo}`, {
+      params: { rol }
+    });
+  }
+
 }

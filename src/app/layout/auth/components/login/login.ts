@@ -195,8 +195,9 @@ export class Login {
               }
 
             }
-            else if (estado == "SUPENDIDO") {
-
+            else if (estado == "SUSPENDIDO") {
+              console.log("cuenta suspendida")
+              this.router.navigate(['cuenta-suspendida']);
             }
             else if (estado == "PENDIENTE") {
 

@@ -7,6 +7,8 @@ import { AdminService } from '../../../../../core/services/admin-service';
 import { ModalVisor } from '../../../../../shared/components/modal/modal-visor/modal-visor';
 import { RegUsuario } from '../reg-usuario/reg-usuario';
 import { EditUsuario } from '../edit-usuario/edit-usuario';
+import { Respuesta } from '../../../../../core/models/respuesta';
+import { MensajeService } from '../../../../../core/services/mensaje-service';
 
 
 @Component({
@@ -21,7 +23,7 @@ export class LstUsuariosActivos {
   tituloUsuarios: string = 'Mantenimiento de Usuarios';
   columnas: string[] = ['Usuario', 'Nombre', 'Apellido', 'Correo', 'Telefono', 'Edad'];
   constructor(
-    private login: LoginService, private admin: AdminService,
+    private login: LoginService, private admin: AdminService, private mensaje: MensajeService,
     private dialog: MatDialog,) { }
 
   datos: any[] = [];
@@ -111,6 +113,17 @@ export class LstUsuariosActivos {
         subtitulo: `¿Deseas desactivar el usuario ${fila.Nombre} ? `
       },
     });
+    
+    fila.Rol="ADMIN"
+    console.log(fila.Rol)
+    dialogEliminar.afterClosed().subscribe((respuesta: Respuesta) => {
+      if (respuesta?.boton != 'CONFIRMAR') return;
+      this.login.suspenderUsuario(fila.Codigo,fila.Rol).subscribe(result => {
+       
+        this.mensaje.MostrarMensajeExito("Se desactivó correctamente el usuario");
+        this.listarUsuarios(this.username);
+      });
+    })
   }
 
   imprimir(fila: any) {

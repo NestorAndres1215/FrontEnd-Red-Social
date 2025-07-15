@@ -26,6 +26,9 @@ export class AdminGuard implements CanActivate {
         if (user.estado === 'BLOQUEADO') {
           return this.router.parseUrl('/cuenta-bloqueada');
         }
+        else if (user.estado == 'SUSPENDIDO') {
+          return this.router.parseUrl('/cuenta-suspendida');
+        }
 
         return true; // acceso permitido
       }),

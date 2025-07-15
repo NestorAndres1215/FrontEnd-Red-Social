@@ -33,8 +33,6 @@ export class AdminService {
   }
 
 
-  bloquearAdmin(codigo: string): Observable<any> {
-    return this.http.delete(`${baserUrl}/admin/usuario/bloquear/${codigo}`);
-  }
+
 }
 

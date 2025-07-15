@@ -40,11 +40,8 @@ export class CodigoVerificacion implements OnInit {
         this.mensaje.MostrarMensaje("SE HA DESBLOQUEADO LA CUENTA")
         this.loginService.logout()
         this.router.navigate(['/login']);
-
       },
-
     });
-
   }
 
 
@@ -55,4 +52,26 @@ export class CodigoVerificacion implements OnInit {
     }
   }
 
+
+  usuario: string = '';
+  enviar() {
+    console.log(this.usuario)
+    const objVerifiacion: Verificacion = {
+      correo: this.correo,
+      usuario: this.usuario
+    }
+    this.verificacionService.enviarCodigoVerificacion(objVerifiacion).subscribe({
+      next: (resp) => {
+        console.log('Código enviado:', resp);
+        this.router.navigate(['/codigo-verificacion']);
+      },
+      error: (err) => {
+        console.error('Error al enviar el código:', err);
+      }
+    });
+  }
+  public logout() {
+    this.loginService.logout();
+    window.location.href = '/login';
+  }
 }
