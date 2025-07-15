@@ -125,6 +125,18 @@ export class Login {
                   });
                   break;
                 }
+                case 'MODERADOR': {
+                  this.router.navigate(['moderador']);
+                  this.loginService.loginStatusSubjec.next(true);
+                  Swal.fire({
+                    icon: 'success',
+                    title: '¡Bienvenido!',
+                    text: 'Bienvenido, Moderador.',
+                    timer: 2000,
+                    timerProgressBar: true,
+                  });
+                  break;
+                }
 
 
                 default: {
@@ -177,6 +189,18 @@ export class Login {
                     icon: 'success',
                     title: '¡Todo listo!',
                     text: 'Tu cuenta ha sido activada con éxito. ¡Bienvenido de nuevo!',
+                    timer: 2000,
+                    timerProgressBar: true,
+                  });
+                  break;
+                }
+                case 'MODERADOR': {
+                  this.router.navigate(['moderador']);
+                  this.loginService.loginStatusSubjec.next(true);
+                  Swal.fire({
+                    icon: 'success',
+                    title: '¡Bienvenido!',
+                    text: 'Bienvenido, Moderador.',
                     timer: 2000,
                     timerProgressBar: true,
                   });

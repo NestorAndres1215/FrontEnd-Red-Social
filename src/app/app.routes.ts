@@ -5,6 +5,8 @@ import { AdminGuard } from './core/guards/admin-guard';
 import { HomeNormal } from './layout/normal/components/home-normal/home-normal';
 import { NormalGuard } from './core/guards/normal-guard';
 import { HomeAdmin } from './layout/admin/components/home-admin/home-admin';
+import { ModeradorGuard } from './core/guards/moderador-guard';
+import { HomeModerador } from './layout/moderador/components/home-moderador/home-moderador';
 
 export const routes: Routes = [
 
@@ -28,9 +30,9 @@ export const routes: Routes = [
         loadChildren: () => import('./layout/auth/modules/codigo-verificacion/codigo-verificacion-module').then(m => m.CodigoVerificacionModule),
         //    canLoad: [LoginGuard]
     },
-        {
+    {
         path: 'cuenta-suspendida',
-        loadChildren: () => import('./layout/auth/modules/suspendido-error/suspendido-error-module').then(m=>m.SuspendidoErrorModule),
+        loadChildren: () => import('./layout/auth/modules/suspendido-error/suspendido-error-module').then(m => m.SuspendidoErrorModule),
         //    canLoad: [LoginGuard]
     },
     /*
@@ -61,7 +63,15 @@ export const routes: Routes = [
             { path: 'usuarios/activos', loadChildren: () => import('./layout/admin/modules/usuarios/usuarios-module').then(m => m.UsuariosModule) }
         ]
     },
-
+    {
+        path: '',
+        component: HomeModerador,
+        canActivate: [ModeradorGuard],
+        children: [
+            { path: 'moderador', loadChildren: () => import('./layout/moderador/modules/moderador/moderador-module').then(m => m.ModeradorModule) },
+            { path: 'usuarios', loadChildren: () => import('./layout/moderador/modules/usuarios/usuarios-module').then(m => m.UsuariosModule) },
+        ]
+    },
 
     {
         path: '',
