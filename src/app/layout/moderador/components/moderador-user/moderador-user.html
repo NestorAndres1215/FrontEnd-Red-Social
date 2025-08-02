@@ -1,0 +1,66 @@
+<div class="container">
+  <!-- Encabezado -->
+  <div class="header">
+    <div class="card-header text-center rounded">
+      <h1 class="h3 h1-sm">
+        <i [class]="icono"></i> {{ titulo }}
+      </h1>
+    </div>
+  </div>
+
+  <!-- Área de contenido -->
+  <div class="content-area">
+    <!-- Buscador -->
+    <div class="search-wrapper">
+      <div class="search-box">
+        <i class="fas fa-search search-icon"></i>
+        <input
+          type="text"
+          placeholder="Buscar por nombre o apellidos"
+          [(ngModel)]="filtro"
+          (input)="filtrarUsuarios()"
+          aria-label="Buscar usuarios"
+        />
+        <i class="fas fa-times clear-icon" *ngIf="filtro" (click)="limpiarFiltro()"></i>
+      </div>
+    </div>
+
+    <!-- Lista de usuarios -->
+    <div class="row">
+      <div
+        class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4"
+        *ngFor="let usuario of usuariosFiltrados | paginate: { itemsPerPage: itemsPorPagina, currentPage: paginaActual }"
+      >
+        <div class="card h-100 text-center shadow-sm animate__animated animate__fadeInUp">
+          <div class="card-body d-flex flex-column align-items-center">
+            <img
+              [src]="mostrarImagen(usuario) || 'img/perfil/image.png'"
+              alt="Imagen de perfil"
+              class="img-fluid rounded-circle img-marca mb-3"
+            />
+            <h5 class="card-title">{{ usuario.nombre }} {{ usuario.apellido }}</h5>
+          </div>
+        </div>
+      </div>
+      <!-- Mensaje si no hay datos -->
+      <div class="col-12 text-center text-muted" *ngIf="usuariosFiltrados.length === 0">
+        No hay usuarios para mostrar.
+      </div>
+    </div>
+
+    <!-- Pagination Controls -->
+    <div class="d-flex justify-content-center pagination-container mt-4" *ngIf="usuariosFiltrados.length > itemsPorPagina">
+        <pagination-controls
+            (pageChange)="onPageChange($event)"
+            [maxSize]="7"
+            [directionLinks]="true"
+            [autoHide]="false"
+            [responsive]="true"
+            previousLabel="Anterior"
+            nextLabel="Siguiente"
+            class="custom-pagination"
+            aria-label="Controles de paginación"
+        ></pagination-controls>
+    </div>
+  </div>
+</div>

@@ -7,12 +7,9 @@
     <div class="card-body">
       <div class="persona">
         <div *ngFor="let col of columnas">
-          <strong>{{ col }}:</strong> {{ datos[col] }}
+          <strong>{{ col.etiqueta+ " " }}:</strong>{{ " "+obtenerValor(datos, col.clave) }}
         </div>
       </div>
-
-
-
     </div>
   </div>
 </div>

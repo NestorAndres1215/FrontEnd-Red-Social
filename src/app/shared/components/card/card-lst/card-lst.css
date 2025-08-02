@@ -1,0 +1,221 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.header {
+    background-color: #ffffff;
+    padding: 20px 30px;
+    border-radius: 15px;
+    margin-bottom: 25px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e0e0e0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    animation: slideIn 0.7s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+}
+
+.header h1 {
+    background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 32px;
+    font-weight: 800;
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    align-items: center;
+    letter-spacing: -0.5px;
+    transition: all 0.3s ease;
+}
+
+.header h1 i {
+    margin-right: 16px;
+    background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 28px;
+    animation: pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.content-area {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e0e0e0;
+}
+
+.btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-search {
+    background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+    color: white;
+}
+
+.hover-grow:hover {
+    transform: scale(1.05) translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.hover-pulse:hover {
+    animation: pulse 0.5s;
+}
+
+.cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 30px 0;
+}
+
+.card {
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+.card-content {
+    padding: 20px;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.card-field {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.field-label {
+    font-weight: 600;
+    color: #333333;
+}
+
+.field-value {
+    color: #555555;
+}
+
+.card-actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding-top: 15px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.card-actions .btn {
+    padding: 8px;
+    background: none;
+    box-shadow: none;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-view, .btn-edit, .btn-delete, .btn-print {
+    color: #1e3a8a;
+}
+
+.btn-view:hover, .btn-edit:hover, .btn-delete:hover, .btn-print:hover {
+    color: #1e3a8a;
+    transform: scale(1.1);
+}
+
+.no-data-card {
+    grid-column: 1 / -1;
+    padding: 20px;
+    text-align: center;
+    background: #f8f8f8;
+    border-radius: 10px;
+}
+
+pagination-controls {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+::ng-deep .ngx-pagination {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+    .card-header h1 {
+        font-size: 1.5rem;
+    }
+    .cards-container {
+        grid-template-columns: 1fr;
+    }
+}

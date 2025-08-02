@@ -1,0 +1,22 @@
+<body>
+    <div class="container">
+        <div class="logo">
+            <div class="logo-icon">
+                <img src="/img/logo/logo_original.png" alt="SocialLike Logo" />
+            </div>
+            <h1>SocialLike</h1>
+        </div>
+        <h2>Introduce tu correo electrónico</h2>
+        <p>Te enviaremos un código de confirmación a esta dirección de correo electrónico.</p>
+        <form [formGroup]="formulario">
+            <div class="form-group">
+                <label><i class="fas fa-envelope"></i> Correo electrónico</label>
+                <input formControlName="email" type="email"  placeholder="Ingresa tu correo " required>
+            </div>
+            <button type="submit" class="submit-button" (click)="operar()"><i class="fas fa-paper-plane"></i> Enviar
+                Correo</button>
+            <p class="info-text"> Usaremos esta dirección de correo electrónico para enviarte actualizaciones sobre la
+                revisión e informarte del resultado. </p>
+        </form>
+    </div>
+</body>

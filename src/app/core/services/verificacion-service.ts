@@ -17,4 +17,6 @@ export class VerificacionService {
   verificarCodigo(verificacion: VerificacionCodigo): Observable<any> {
     return this.http.post(`${baserUrl}/codigo-verificacion/verificar-codigo`, verificacion);
   }
+
+
 }

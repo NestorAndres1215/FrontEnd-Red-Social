@@ -9,9 +9,17 @@ import baserUrl from '../interceptors/helper';
 
 export class LoginService {
   public loginStatusSubjec = new Subject<boolean>();
+
+  private enVerificacion: boolean = false;
   constructor(private http: HttpClient) { }
 
+  setProcesoVerificacion(valor: boolean): void {
+    this.enVerificacion = valor;
+  }
 
+  enProcesoDeVerificacion(): boolean {
+    return this.enVerificacion;
+  }
   // Método para generar el token
   public generateToken(loginData: any) {
     return this.http.post(`${baserUrl}/auth/generate-token`, loginData);
@@ -99,4 +107,11 @@ export class LoginService {
     });
   }
 
+  revisionPorCorreo(correo: string): Observable<any> {
+    return this.http.post(`${baserUrl}/auth/usuario/revision-user/${correo}`, {});
+  }
+
+  listarRevisionesPorCorreo(correo: string): Observable<any> {
+    return this.http.get(`${baserUrl}/revision/suspension/listar/revision/${correo}`);
+  }
 }

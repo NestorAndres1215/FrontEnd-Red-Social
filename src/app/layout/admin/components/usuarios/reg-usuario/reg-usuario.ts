@@ -43,10 +43,10 @@ export class RegUsuario implements OnInit {
     this.formulario = this.formBuilder.group({
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
-      correo: ['', [Validators.required, Validators.email]], // ✅ Validación de email
+      correo: ['', [Validators.required, Validators.email]],
       telefono: ['', [
         Validators.required,
-        Validators.pattern('^[0-9]*$')  // ✅ Solo números
+        Validators.pattern('^[0-9]*$')
       ]],
       fechaNacimiento: ['', Validators.required],
       username: ['', Validators.required],

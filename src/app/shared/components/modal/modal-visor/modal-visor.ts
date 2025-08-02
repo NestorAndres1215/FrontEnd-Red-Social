@@ -16,7 +16,7 @@ export class ModalVisor implements OnInit {
   ) { }
 
   titulo: string = "";
-  @Input() columnas: string[] = [];
+  @Input() columnas: { etiqueta: string; clave: string }[] = [];
   @Input() datos: any;
   ngOnInit(): void {
     console.log('Datos recibidos en el modal:', this.data.titulo);
@@ -25,10 +25,12 @@ export class ModalVisor implements OnInit {
 
     this.datos = this.data['fila'];
     console.log('Datos de la fila:', this.datos);
-    console.log(typeof this.datos )
+    console.log(typeof this.datos)
   }
-
-  }
+  obtenerValor(obj: any, clave: string): any {
+  return clave.split('.').reduce((valor, parte) => valor?.[parte], obj);
+}
+}
 
 
 

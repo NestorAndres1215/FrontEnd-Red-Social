@@ -12,7 +12,8 @@ export class Table {
 
   @Input() icono: string = '';
   @Input() titulo: string = '';
-  @Input() columnas: string[] = [];
+@Input() columnas: { etiqueta: string; clave: string }[] = [];
+
   @Input() onRegistrar!: () => void;
   @Input() botonesConfig: any = {};
   @Input() datos: any[] = [];
@@ -31,6 +32,11 @@ export class Table {
   @Input() onImprimir!: (fila: any) => void;
   @Input() onExportarPDF!: () => void;
   @Input() onExportarExcel!: () => void;
+
+  obtenerValor(obj: any, clave: string): any {
+  return clave.split('.').reduce((valor, parte) => valor?.[parte], obj);
+}
+
   getAnimationDelay(): number {
     return Math.floor(Math.random() * 500);
   }

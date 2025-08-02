@@ -21,7 +21,15 @@ export class LstUsuariosActivos {
 
   iconoUsuarios: string = 'fas fa-users';
   tituloUsuarios: string = 'Mantenimiento de Usuarios';
-  columnas: string[] = ['Usuario', 'Nombre', 'Apellido', 'Correo', 'Telefono', 'Edad'];
+  columnas = [
+    { etiqueta: 'Usuario', clave: 'Usuario' },
+    { etiqueta: 'Nombre', clave: 'Nombre' },
+    { etiqueta: 'Apellido', clave: 'Apellido' },
+    { etiqueta: 'Correo', clave: 'Correo' },
+    { etiqueta: 'Teléfono', clave: 'Telefono' },
+
+  ];
+
   constructor(
     private login: LoginService, private admin: AdminService, private mensaje: MensajeService,
     private dialog: MatDialog,) { }
@@ -32,19 +40,21 @@ export class LstUsuariosActivos {
     registrar: true,
     ver: true,
     actualizar: true,
-    eliminar: true,
+    eliminar: false,
     imprimir: true,
     exportarPDF: true,
     exportarExcel: true
   };
+
   user: any = null;
   username: string = '';
   ngOnInit() {
     this.user = this.login.getUser();
     this.username = this.user.username;
-
     this.listarUsuarios(this.username);
   }
+
+
   listarUsuarios(username: string) {
     console.log('Listar Usuarios', username);
     this.admin.listarAdminsActivosExcluyendo(username).subscribe({
@@ -77,8 +87,7 @@ export class LstUsuariosActivos {
     console.log('Ver Marca', fila);
     const dialogRef = this.dialog.open(ModalVisor, {
 
-      width: '1050px',
-      height: '450px',
+panelClass: 'visor-dialog',
       data: {
         titulo: 'Visualización de Usuario',
         columnas: this.columnas,
@@ -113,13 +122,13 @@ export class LstUsuariosActivos {
         subtitulo: `¿Deseas desactivar el usuario ${fila.Nombre} ? `
       },
     });
-    
-    fila.Rol="ADMIN"
+
+    fila.Rol = "ADMIN"
     console.log(fila.Rol)
     dialogEliminar.afterClosed().subscribe((respuesta: Respuesta) => {
       if (respuesta?.boton != 'CONFIRMAR') return;
-      this.login.suspenderUsuario(fila.Codigo,fila.Rol).subscribe(result => {
-       
+      this.login.suspenderUsuario(fila.Codigo, fila.Rol).subscribe(result => {
+
         this.mensaje.MostrarMensajeExito("Se desactivó correctamente el usuario");
         this.listarUsuarios(this.username);
       });

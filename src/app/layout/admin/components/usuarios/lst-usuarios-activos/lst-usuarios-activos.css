@@ -1,7 +1,7 @@
 ::ng-deep .custom-dialog {
   width: 80vw !important;
   max-width: 100vw !important;
-  height: 86vh !important;
+  height: 81vh !important;
   max-height: 95vh !important;
   margin: auto !important;
   padding: 0 !important;
@@ -12,7 +12,7 @@
 ::ng-deep .edit-modal {
   width: 80vw !important;
   max-width: 100vw !important;
-  height: 80vh !important;
+  height: 75vh !important;
   max-height: 95vh !important;
   margin: auto !important;
   padding: 0 !important;

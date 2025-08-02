@@ -103,28 +103,33 @@ export class NavbarModerador {
   }
   //* Filtrar el menú por categoría y asignar a menu2FiltradoPorCategoria
   menu2FiltradoPorCategoria: { [categoria: string]: any[] } = {};
-  toggleSubMenu(menuItem: any): void {
-    console.log("xd"+menuItem)
-    if (!menuItem || !menuItem.categoria) {
-      console.warn('No se puede cargar submenú: categoría no definida');
-      return;
-    }
+toggleSubMenu(menuItem: any): void {
+  console.log(menuItem.ruta)
+  if (!menuItem || !menuItem.categoria) {
+    console.warn('No se puede cargar submenú: categoría no definida');
+    return;
+  }
 
+  // Verifica si existen submenús
+  const submenus = this.menu2.filter(
+    (i: { categoria: any }) => i.categoria === menuItem.categoria
+  );
+
+  if (submenus.length > 0) {
+    // Mostrar/ocultar submenús
     menuItem.mostrarSubMenu = !menuItem.mostrarSubMenu;
 
     if (menuItem.mostrarSubMenu) {
-      this.menu2FiltradoPorCategoria[menuItem.categoria] = this.menu2.filter(
-        (i: { categoria: any }) => i.categoria === menuItem.categoria
-      );
-
-      if (this.menu2FiltradoPorCategoria[menuItem.categoria].length === 0) {
-        console.warn('Submenú vacío. Redirigiendo a /administrador');
-        this.router.navigate(['/moderador']);
-      }
+      this.menu2FiltradoPorCategoria[menuItem.categoria] = submenus;
     } else {
       this.menu2FiltradoPorCategoria[menuItem.categoria] = [];
     }
+  } else {
+    // No hay submenús: redirigir directamente
+    console.warn('Submenú vacío. Redirigiendo a /moderador');
+    this.router.navigate(['/'+menuItem.ruta]);
   }
+}
 
 
   async listarMenuSegundo(categoria: any) {

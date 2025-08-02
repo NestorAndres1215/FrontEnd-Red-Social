@@ -7,6 +7,9 @@ import { NormalGuard } from './core/guards/normal-guard';
 import { HomeAdmin } from './layout/admin/components/home-admin/home-admin';
 import { ModeradorGuard } from './core/guards/moderador-guard';
 import { HomeModerador } from './layout/moderador/components/home-moderador/home-moderador';
+import { VerificacionGuard } from './core/guards/verificacion-guard';
+import { bloqueoGuard } from './core/guards/bloqueo-guard';
+import { Error } from './shared/components/error/error';
 
 export const routes: Routes = [
 
@@ -14,6 +17,7 @@ export const routes: Routes = [
     { path: '', redirectTo: 'principal', pathMatch: 'full' },
     // Carga el módulo de 'principal'
     { path: 'principal', loadChildren: () => import('./layout/auth/modules/home/home-module').then(m => m.HomeModule) },
+    { path: 'error', component: Error },
     // Carga el módulo de 'registro'
     {
         path: 'registro',
@@ -23,7 +27,7 @@ export const routes: Routes = [
     {
         path: 'cuenta-bloqueada',
         loadChildren: () => import('./layout/auth/modules/bloqueo-error/bloqueo-error-module').then(m => m.BloqueoErrorModule),
-        //    canLoad: [LoginGuard]
+        // canActivate: [bloqueoGuard]
     },
     {
         path: 'codigo-verificacion',
@@ -33,14 +37,18 @@ export const routes: Routes = [
     {
         path: 'cuenta-suspendida',
         loadChildren: () => import('./layout/auth/modules/suspendido-error/suspendido-error-module').then(m => m.SuspendidoErrorModule),
-        //    canLoad: [LoginGuard]
+        //canLoad: [LoginGuard]
     },
-    /*
     {
-        path: 'servicio-ayuda',
-        loadChildren: () => import('../app/layout/contacts/modules/servicio-ayuda/servicio-ayuda-module').then(m => m.ServicioAyudaModule),
-        canLoad: [LoginGuard]
-    },*/
+        path: 'verificacion-correo',
+        loadChildren: () => import('./layout/auth/modules/verificacion-correo/verificacion-correo-module').then(m => m.VerificacionCorreoModule),
+
+    },
+    {
+        path: 'verificacion-cuenta',
+        loadChildren: () => import('./layout/auth/modules/suspension-esperar/suspension-esperar-module').then(m => m.SuspensionEsperarModule),
+
+    },
 
 
     {
@@ -70,6 +78,7 @@ export const routes: Routes = [
         children: [
             { path: 'moderador', loadChildren: () => import('./layout/moderador/modules/moderador/moderador-module').then(m => m.ModeradorModule) },
             { path: 'usuarios', loadChildren: () => import('./layout/moderador/modules/usuarios/usuarios-module').then(m => m.UsuariosModule) },
+            { path: 'usuarios-moderadores', loadChildren: () => import('./layout/moderador/modules/moderador-user/moderador-user-module').then(m => m.ModeradorUserModule) },
         ]
     },
 

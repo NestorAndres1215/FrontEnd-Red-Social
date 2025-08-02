@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { LoginService } from '../../../../core/services/login-service';
@@ -12,7 +12,7 @@ import { AdminService } from '../../../../core/services/admin-service';
   templateUrl: './login.html',
   styleUrl: './login.css'
 })
-export class Login {
+export class Login implements OnInit {
   loginData = {
     "username": '',
     "password": '',
@@ -24,6 +24,10 @@ export class Login {
     private adminService: AdminService,
     private router: Router,
     private mensaje: MensajeService) { }
+  ngOnInit(): void {
+
+
+  }
   showPassword = false;
 
   togglePassword(): void {
@@ -58,7 +62,6 @@ export class Login {
 
     this.loginService.generateToken(this.loginData).subscribe({
       next: async (data: any) => {
-
 
         if (this.intentosFallidos >= 10) {
 
@@ -220,7 +223,16 @@ export class Login {
 
             }
             else if (estado == "SUSPENDIDO") {
-              console.log("cuenta suspendida")
+              const user = this.loginService.getUser();
+              const username = user.correo;
+              const revisiones: any[] = await this.loginService.listarRevisionesPorCorreo(username).toPromise();
+              const estadoRevision = revisiones[0].observacion;
+
+              // ✅ Redirige si tiene revisión pendiente
+              if (estadoRevision === 'PENDIENTE') {
+                this.router.navigate(['verificacion-cuenta']);
+                return ;
+              }
               this.router.navigate(['cuenta-suspendida']);
             }
             else if (estado == "PENDIENTE") {
@@ -240,6 +252,7 @@ export class Login {
             this.router.navigate(['login']);
           }
         });
+
       },
 
       error: (error) => {

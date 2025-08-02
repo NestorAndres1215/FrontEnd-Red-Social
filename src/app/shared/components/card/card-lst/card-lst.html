@@ -1,0 +1,33 @@
+<div class="container">
+    <div class="header">
+        <div class="card-header text-center rounded">
+            <h1 class="h3 h1-sm">
+                <i [class]="icono"></i> {{ titulo }}
+            </h1>
+        </div>
+    </div>
+    <div class="content-area">
+        <button *ngIf="botonesConfig.buscar" class="btn btn-search hover-grow" (click)="onBuscar()">
+            <i class="fas fa-search"></i> Buscar
+        </button>
+        <div class="cards-container">
+            <div *ngFor="let fila of datos | paginate: { itemsPerPage: itemsPorPagina, currentPage: paginaActual }" 
+                 class="card animate__animated animate__fadeInUp" 
+                 [style.animation-delay.ms]="getAnimationDelay()">
+                <div class="card-content">
+                    <div class="card-body">
+                        <div *ngFor="let col of columnas" class="card-field">
+                            <span class="field-label">{{ col.etiqueta }}:</span>
+                            <span class="field-value">{{ obtenerValor(fila, col.clave) }}</span>
+                        </div>
+                    </div>
+                   
+                </div>
+            </div>
+            <div *ngIf="datos.length === 0" class="no-data-card">
+                <p class="text-center text-muted">No hay datos para mostrar.</p>
+            </div>
+        </div>
+        <pagination-controls (pageChange)="paginaActual = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+    </div>
+</div>
