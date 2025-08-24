@@ -1,80 +1,149 @@
-<div class="sidebar">
-    <h2><i class="fas fa-address-book"></i> Contactos</h2>
-    <hr>
-    <ul>
-        <li>
-            <a href="#">
-                <img src="/img/perfil/image.png" alt="Perfil"
-                    style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
-                Jose Carlos
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <img src="/img/perfil/image.png" alt="Perfil"
-                    style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
-                Ana Gómez
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <img src="/img/perfil/image.png" alt="Perfil"
-                    style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
-                Luis Torres
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <img src="/img/perfil/image.png" alt="Perfil"
-                    style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
-                Valeria Díaz
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <img src="/img/perfil/image.png" alt="Perfil"
-                    style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
-                Pedro Ramírez
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <img src="/img/perfil/image.png" alt="Perfil"
-                    style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
-                Carla Fernández
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <img src="/img/perfil/image.png" alt="Perfil"
-                    style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
-                Diego Moreno
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <img src="/img/perfil/image.png" alt="Perfil"
-                    style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
-                Sofía Vega
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <img src="/img/perfil/image.png" alt="Perfil"
-                    style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
-                Andrés Ruiz
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <img src="/img/perfil/image.png" alt="Perfil"
-                    style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
-                Mariana Soto
-            </a>
-        </li>
-    </ul>
-</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-9  mt-4">
+            <div class="container">
+                <div class="message-bubble">
+                    <div class="message-header">
+                        <div class="avatar">
+                            <img src="/img/perfil/image.png" alt="Perfil">
+                        </div>
+                        <button class="btn  border rounded-pill w-100 text-start ">
+                            ¿Qué estás pensando, Nestor?
+                        </button>
+                    </div>
+                    <hr class="message-divider">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-6">
+                                <button class="option-button video-live w-100" onclick="startLiveVideo()">
+                                    <div class="icon video-icon">
+                                        <i class="fas fa-video"></i>
+                                    </div>
+                                    <span>Video en directo</span>
+                                </button>
+                            </div>
+                            <div class="col-6">
+                                <button class="option-button photo-video w-100" onclick="openPhotoVideo()">
+                                    <div class="icon photo-icon">
+                                        <i class="fas fa-camera"></i>
+                                    </div>
+                                    <span>Foto/video</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <!-- stories.component.html -->
+                <div id="storiesCarousel" class="carousel slide" (slid.bs.carousel)="onSlide($event)">
+                    <div class="carousel-inner">
 
-<div class="main-content">
+                        <!-- Slides dinámicos -->
+                        <div class="carousel-item" *ngFor="let group of storyGroups; let i = index"
+                            [class.active]="i === 0">
+                            <div class="row text-center">
+                                <div class="col-4 col-sm-4 col-md-3" *ngFor="let story of group">
+                                    <div class="story-card" (click)="selectStory(story.type)"
+                                        [style.backgroundImage]="'url(' + story.image + ')'">
+                                        <div class="story-overlay"></div>
+                                        <div class="story-content">
+                                            <div class="story-title">{{ story.title }}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
+
+                    </div>
+
+                    <!-- Botón Anterior -->
+                    <button *ngIf="!isFirstSlide" class="carousel-control-prev" type="button"
+                        data-bs-target="#storiesCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon"></span>
+                    </button>
+
+                    <!-- Botón Siguiente -->
+                    <button *ngIf="!isLastSlide" class="carousel-control-next" type="button"
+                        data-bs-target="#storiesCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon"></span>
+                    </button>
+                </div>
+
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque sequi quam eligendi molestiae dolore
+                deleniti magni voluptates eius et. Ex nam odio porro sit voluptatem, ipsam nisi. Doloremque, error
+                reiciendis?
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat, pariatur, ipsa exercitationem dolorum
+                libero facilis obcaecati necessitatibus hic rem sint perspiciatis voluptas eum, natus aperiam illo! Sit
+                nihil libero consequuntur!
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. In voluptatibus unde saepe voluptatum tempore
+                quaerat neque, delectus voluptate iste architecto? Magnam beatae ut incidunt facere quia numquam at
+                repellat recusandae.
+            </div>
+
+        </div>
+        <div class="col-md-3 sidebar ">
+            <h2><i class="fas fa-address-book"></i> Contactos</h2>
+            <hr>
+            <ul>
+                <li>
+                    <a href="#">
+                        <img src="/img/perfil/image.png" alt="Perfil"
+                            style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
+                        Jose Carlos
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="/img/perfil/image.png" alt="Perfil"
+                            style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
+                        Ana Gómez
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="/img/perfil/image.png" alt="Perfil"
+                            style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
+                        Luis Torres
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="/img/perfil/image.png" alt="Perfil"
+                            style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
+                        Valeria Díaz
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="/img/perfil/image.png" alt="Perfil"
+                            style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
+                        Pedro Ramírez
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="/img/perfil/image.png" alt="Perfil"
+                            style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
+                        Carla Fernández
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="/img/perfil/image.png" alt="Perfil"
+                            style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
+                        Diego Moreno
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="/img/perfil/image.png" alt="Perfil"
+                            style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
+                        Sofía Vega
+                    </a>
+                </li>
+                <br>
+            </ul>
+        </div>
+    </div>
 </div>

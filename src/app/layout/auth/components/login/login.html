@@ -11,7 +11,7 @@
         <form (ngSubmit)="formSubmit()" #loginForm="ngForm">
             <div class="form-group">
                 <label for="username"><i class="fas fa-user"></i> Usuario</label>
-                <input type="text" [(ngModel)]="loginData.username" id="username" name="username"
+                <input type="text" [(ngModel)]="loginData.login" id="username" name="username"
                     placeholder="Ingresa tu usuario" required>
             </div>
             <div class="form-group">
@@ -22,7 +22,6 @@
                     <i class="fas password-toggle" [class.fa-eye]="!showPassword" [class.fa-eye-slash]="showPassword"
                         (click)="togglePassword()"></i>
                 </div>
-
                 <div class="forgot-password-link">
                     <a href="olvidar-contrasena">¿Olvidaste tu contraseña?</a>
                 </div>

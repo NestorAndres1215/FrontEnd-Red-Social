@@ -11,13 +11,15 @@
                 <i class="fas" [ngClass]="isNavActive ? 'fa-times' : 'fa-bars'"></i>
             </button>
             <div class="nav-links" [ngClass]="{'active': isNavActive}">
-                <a href="#" [routerLink]="'/inicio'" class="nav-link"><i class="fas fa-home"></i> </a>
-                <a href="#" class="nav-link"><i class="fas fa-users"></i> </a>
-                <a href="#" class="nav-link"><i class="fas fa-message"></i> </a>
-                <a href="#" class="nav-link"><i class="fas fa-video"></i> </a>
-                <a href="#" class="nav-link"><i class="fas fa-bell"></i> </a>
+                <a href="#" [routerLink]="'/inicio'" class="nav-link"><i class="fas fa-home"></i><span
+                        *ngIf="isNavActive">Inicio</span> </a>
+                <a href="#" class="nav-link"><i class="fas fa-users"></i><span *ngIf="isNavActive">Amigos</span> </a>
+                <a href="#" class="nav-link"><i class="fas fa-message"></i> <span *ngIf="isNavActive">Mesage</span> </a>
+                <a href="#" class="nav-link"><i class="fas fa-video"></i> <span *ngIf="isNavActive">Video</span> </a>
+                <a href="#" class="nav-link"><i class="fas fa-bell"></i> <span *ngIf="isNavActive">Notificaciones</span>
+                </a>
                 <a (click)="logout()" class="nav-link" role="button">
-                    <i class="fas fa-sign-out-alt"></i>
+                    <i class="fas fa-sign-out-alt"></i> <span *ngIf="isNavActive">Cerrar Sesión</span>
                 </a>
             </div>
         </nav>
@@ -27,26 +29,29 @@
     <div class="sidebar">
         <ul>
             <li *ngIf="isLoggedIn && normales.length > 0">
-                <a href="#"><i class="fas fa-user"></i> {{ normales[0].nombre }} {{ normales[0].apellido }}</a>
+                <a href="#"><i class="fas fa-user"></i> NESTOR</a>
             </li>
-            <li>
-                <a href="#" class="nav-link">
-                    <i class="fas fa-search"></i> Buscar
-                </a>
-            </li>
-            <li><a href="#"><i class="fas fa-compass"></i> Explorar</a></li>
-            <li><a href="#"><i class="fas fa-bookmark"></i> Guardados</a></li>
-            <li><a href="#"><i class="fas fa-calendar-alt"></i> Eventos</a></li>
-            <li><a href="#"><i class="fas fa-users"></i> Grupos</a></li>
-            <li><a href="#"><i class="fas fa-envelope"></i> Mensajes</a></li>
-            <li><a href="#"><i class="fas fa-video"></i> Videos</a></li>
-            <li><a href="#"><i class="fas fa-birthday-cake"></i> Cumpleaños</a></li>
-            <li *ngIf="isLoggedIn">
-                <a href="#" (click)="logout()">
-                    <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
-                </a>
-            </li>
+            <li><a href="#" class="nav-link"><i class="fas fa-search"></i> Buscar</a></li>
+            <!-- 🔹 Acciones principales -->
+            <li><a href="#"><i class="fas fa-plus-circle"></i> Crear fotos o historia</a></li>
+            <li><a href="#"><i class="fas fa-calendar-plus"></i> Evento</a></li>
 
+            <!-- 🔹 Interacción social -->
+            <li><a href="#"><i class="fas fa-envelope"></i> Mensajes</a></li>
+            <li><a href="#"><i class="fas fa-users"></i> Grupos</a></li>
+
+            <!-- 🔹 Explorar contenido -->
+            <li><a href="#"><i class="fas fa-rss"></i> Feeds</a></li>
+            <li><a href="#"><i class="fas fa-video"></i> Videos</a></li>
+            <li><a href="#"><i class="fas fa-store"></i> Marketplace</a></li>
+            <li><a href="#"><i class="fas fa-clock"></i> Recuerdos</a></li>
+
+            <!-- 🔹 Extras -->
+            <li><a href="#"><i class="fas fa-bookmark"></i> Guardados</a></li>
+            <li><a href="#"><i class="fas fa-birthday-cake"></i> Cumpleaños</a></li>
+            <li><a href="#"><i class="fas fa-compass"></i> Explorar</a></li>
+            <li *ngIf="isLoggedIn"><a href="#" (click)="logout()"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+            </li>
             <li><a href="#"><i class="fas fa-cog"></i> Configuración</a></li>
 
         </ul>

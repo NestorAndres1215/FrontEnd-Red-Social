@@ -1,41 +1,35 @@
 import { Component } from '@angular/core';
-import { Table } from "../../../../../shared/components/table/table";
-import { MatDialog } from '@angular/material/dialog';
-import { ModalEliminacion } from '../../../../../shared/components/modal/modal-eliminacion/modal-eliminacion';
 import { LoginService } from '../../../../../core/services/login-service';
 import { AdminService } from '../../../../../core/services/admin-service';
-import { ModalVisor } from '../../../../../shared/components/modal/modal-visor/modal-visor';
-import { RegUsuario } from '../reg-usuario/reg-usuario';
-import { EditUsuario } from '../edit-usuario/edit-usuario';
-import { Respuesta } from '../../../../../core/models/respuesta';
 import { MensajeService } from '../../../../../core/services/mensaje-service';
-
+import { MatDialog } from '@angular/material/dialog';
+import { RegUsuario } from '../../usuarios/reg-usuario/reg-usuario';
+import { ModalVisor } from '../../../../../shared/components/modal/modal-visor/modal-visor';
+import { EditUsuario } from '../../usuarios/edit-usuario/edit-usuario';
+import { Respuesta } from '../../../../../core/models/respuesta';
+import { ModalEliminacion } from '../../../../../shared/components/modal/modal-eliminacion/modal-eliminacion';
+import { Table } from '../../../../../shared/components/table/table';
 
 @Component({
-  selector: 'app-lst-usuarios-activos',
+  selector: 'app-lst-admin',
   imports: [Table],
-  templateUrl: './lst-usuarios-activos.html',
-  styleUrl: './lst-usuarios-activos.css'
+  templateUrl: './lst-admin.html',
+  styleUrl: './lst-admin.css'
 })
-export class LstUsuariosActivos {
+export class LstAdmin {
 
-  iconoUsuarios: string = 'fas fa-users';
-  tituloUsuarios: string = 'Mantenimiento de Usuarios';
-  columnas = [
-    { etiqueta: 'Usuario', clave: 'Usuario' },
-    { etiqueta: 'Nombre', clave: 'Nombre' },
-    { etiqueta: 'Apellido', clave: 'Apellido' },
-    { etiqueta: 'Correo', clave: 'Correo' },
-    { etiqueta: 'Teléfono', clave: 'Telefono' },
-
-  ];
-
-  constructor(
-    private login: LoginService, private admin: AdminService, private mensaje: MensajeService,
-    private dialog: MatDialog,) { }
-
+  iconoSeccion = 'fas fa-user-shield';
+  tituloSeccion = 'Mantenimiento de Administradores';
   datos: any[] = [];
-
+  user: any;
+  username: string = '';
+  columnas = [
+    { etiqueta: 'Usuario', clave: 'usernameAdmin' },
+    { etiqueta: 'Nombre', clave: 'nombreAdmin' },
+    { etiqueta: 'Apellido', clave: 'apellidoAdmin' },
+    { etiqueta: 'Correo', clave: 'correoAdmin' },
+    { etiqueta: 'Teléfono', clave: 'telefonoAdmin' },
+  ];
   botonesConfig = {
     registrar: true,
     ver: true,
@@ -46,27 +40,25 @@ export class LstUsuariosActivos {
     exportarExcel: true
   };
 
-  user: any = null;
-  username: string = '';
+
+  constructor(
+    private login: LoginService, private admin: AdminService, private mensaje: MensajeService,
+    private dialog: MatDialog,) { }
+
   ngOnInit() {
     this.user = this.login.getUser();
     this.username = this.user.username;
     this.listarUsuarios(this.username);
   }
 
-
   listarUsuarios(username: string) {
-    console.log('Listar Usuarios', username);
     this.admin.listarAdminsActivosExcluyendo(username).subscribe({
       next: (usuarios) => this.datos = usuarios,
       error: (err) => console.error('Error:', err)
     });
   }
 
-
-
   registrar() {
-    console.log(this.username);
     const dialogRef = this.dialog.open(RegUsuario, {
       disableClose: true,
       panelClass: 'custom-dialog'
@@ -79,7 +71,6 @@ export class LstUsuariosActivos {
   }
 
   ver(fila: any) {
-    console.log('Ver Marca', fila);
     const dialogRef = this.dialog.open(ModalVisor, {
 
       panelClass: 'visor-dialog',
@@ -90,7 +81,6 @@ export class LstUsuariosActivos {
       }
     });
   }
-
   actualizar(fila: any) {
     const dialogRef = this.dialog.open(EditUsuario, {
       disableClose: true,
@@ -105,8 +95,8 @@ export class LstUsuariosActivos {
     })
   }
 
+
   eliminar(fila: any): void {
-    console.log('Imprimir Marca', fila);
     const dialogEliminar = this.dialog.open(ModalEliminacion, {
       disableClose: true,
       width: '700px',
@@ -157,27 +147,27 @@ export class LstUsuariosActivos {
         <table style="width: 100%; border-collapse: collapse; margin-top: 30px; font-size: 15px;">
           <tr style="background-color: #f0f4f8;">
             <td style="padding: 10px; font-weight: bold; width: 30%; border: 1px solid #ccc;">Nombre completo:</td>
-            <td style="padding: 10px; border: 1px solid #ccc;">${usuario.Nombre} ${usuario.Apellido}</td>
+            <td style="padding: 10px; border: 1px solid #ccc;">${usuario.nombreAdmin} ${usuario.apellidoAdmin}</td>
           </tr>
           <tr>
             <td style="padding: 10px; font-weight: bold; border: 1px solid #ccc;">Edad:</td>
-            <td style="padding: 10px; border: 1px solid #ccc;">${usuario.Edad} años</td>
+            <td style="padding: 10px; border: 1px solid #ccc;">${usuario.edadAdmin} años</td>
           </tr>
           <tr style="background-color: #f0f4f8;">
             <td style="padding: 10px; font-weight: bold; border: 1px solid #ccc;">Usuario asignado:</td>
-            <td style="padding: 10px; border: 1px solid #ccc;">${usuario.Usuario}</td>
+            <td style="padding: 10px; border: 1px solid #ccc;">${usuario.usernameAdmin}</td>
           </tr>
           <tr>
             <td style="padding: 10px; font-weight: bold; border: 1px solid #ccc;">Correo electrónico:</td>
-            <td style="padding: 10px; border: 1px solid #ccc;">${usuario.Correo}</td>
+            <td style="padding: 10px; border: 1px solid #ccc;">${usuario.correoAdmin}</td>
           </tr>
           <tr style="background-color: #f0f4f8;">
             <td style="padding: 10px; font-weight: bold; border: 1px solid #ccc;">Teléfono:</td>
-            <td style="padding: 10px; border: 1px solid #ccc;">${usuario.Telefono}</td>
+            <td style="padding: 10px; border: 1px solid #ccc;">${usuario.telefonoAdmin}</td>
           </tr>
           <tr>
             <td style="padding: 10px; font-weight: bold; border: 1px solid #ccc;">Fecha de nacimiento:</td>
-            <td style="padding: 10px; border: 1px solid #ccc;">${usuario.FechaNacimiento}</td>
+            <td style="padding: 10px; border: 1px solid #ccc;">${usuario.fechaNacimientoAdmin}</td>
           </tr>
 
           <tr>
@@ -227,7 +217,5 @@ export class LstUsuariosActivos {
       document.body.removeChild(iframe);
     }
   }
-
-
 
 }

@@ -68,7 +68,8 @@ export const routes: Routes = [
         canActivate: [AdminGuard],
         children: [
             { path: 'administrador', loadChildren: () => import('./layout/admin/modules/admin/admin-module').then(m => m.AdminModule) },
-            { path: 'usuarios/activos', loadChildren: () => import('./layout/admin/modules/usuarios/usuarios-module').then(m => m.UsuariosModule) }
+            { path: 'usuarios/activos', loadChildren: () => import('./layout/admin/modules/usuarios/usuarios-module').then(m => m.UsuariosModule) },
+            { path: 'usuarios', loadChildren: () => import('./layout/admin/modules/usuarios/usuarios-module').then(m => m.UsuariosModule) }
         ]
     },
     {

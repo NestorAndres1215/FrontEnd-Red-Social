@@ -41,14 +41,37 @@ export class RegistroAuth implements OnInit {
   minDate: string | undefined;
   showPassword = false;
   edad!: number;
-  nacionalidades: string[] = [
+nacionalidades: string[] = [
     'Argentina',
     'Brasil',
     'Chile',
     'Colombia',
     'México',
-    // Add more nationalities as needed
-  ];
+    'Perú',
+    'Uruguay',
+    'Paraguay',
+    'Bolivia',
+    'Ecuador',
+    'Venezuela',
+    'Costa Rica',
+    'Panamá',
+    'Guatemala',
+    'Honduras',
+    'El Salvador',
+    'Nicaragua',
+    'Cuba',
+    'República Dominicana',
+    'Puerto Rico',
+    'Belice',
+    'México',
+    'Guyana',
+    'Surinam',
+    'Francia (Guayana)',
+    'Estados Unidos',
+    'Canadá',
+    'España'
+];
+
   generos: { valor: string, texto: string }[] = [
     { valor: 'masculino', texto: 'Masculino' },
     { valor: 'femenino', texto: 'Femenino' },
@@ -115,19 +138,20 @@ export class RegistroAuth implements OnInit {
     }
     if (this.formulario.valid) {
       const objNormal: Normal = {
-        nombre: this.formulario.get('nombre')?.value,
-        apellido: this.formulario.get('apellido')?.value,
-        edad: this.edad,
-        correo: this.formulario.get('email')?.value,
-        telefono: this.formulario.get('telefono')?.value,
-        genero: this.formulario.get('genero')?.value,
-        fechaNacimiento: this.formulario.get('fechaNacimiento')?.value,
-        nacionalidad: this.formulario.get('nacionalidad')?.value,
-        username: this.formulario.get('username')?.value,
-        password: this.formulario.get('password')?.value,
         codigoUsuario: '',
-        codigoNormal: ''
+        codigoNormal: '',
+        nombreNormal: this.formulario.get('nombre')?.value,
+        apellidoNormal: this.formulario.get('apellido')?.value,
+        correoNormal: this.formulario.get('email')?.value,
+        edadNormal: this.edad,
+        telefonoNormal: this.formulario.get('telefono')?.value,
+        fechaNacimientoNormal: this.formulario.get('fechaNacimiento')?.value,
+        generoNormal: this.formulario.get('genero')?.value,
+        nacionalidadNormal: this.formulario.get('nacionalidad')?.value,
+        usernameNormal: this.formulario.get('username')?.value,
+        passwordNormal: this.formulario.get('password')?.value
       };
+
       console.log(objNormal)
       this.normalService.registrar(objNormal).subscribe({
         next: (respuesta) => {

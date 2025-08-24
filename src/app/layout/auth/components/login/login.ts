@@ -14,7 +14,7 @@ import { AdminService } from '../../../../core/services/admin-service';
 })
 export class Login implements OnInit {
   loginData = {
-    "username": '',
+    "login": '',
     "password": '',
   }
 
@@ -38,7 +38,7 @@ export class Login implements OnInit {
   formSubmit() {
     console.log(this.loginData)
     // Validar si el nombre de usuario está vacío o nulo
-    if (this.loginData.username.trim() === '' || this.loginData.username.trim() === null) {
+    if (this.loginData.login.trim() === '' || this.loginData.login.trim() === null) {
       Swal.fire({
         icon: 'warning',
         title: 'Campo requerido',
@@ -65,7 +65,7 @@ export class Login implements OnInit {
 
         if (this.intentosFallidos >= 10) {
 
-          const respuesta = await this.loginService.bloquearUsuario(this.loginData.username).toPromise();
+          const respuesta = await this.loginService.bloquearUsuario(this.loginData.login).toPromise();
           console.log(respuesta)
           Swal.fire({
             icon: 'error',

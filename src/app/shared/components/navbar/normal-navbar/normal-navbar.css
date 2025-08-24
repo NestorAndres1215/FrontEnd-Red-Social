@@ -213,5 +213,20 @@ nav {
 .main-content {
   margin-left: 350px;
   flex-grow: 1;
-  
+
 }
+
+@media (max-width: 1024px) {
+  .sidebar {
+    display: none !important;
+  }
+
+  .main-content {
+    margin-left: 0px;
+    flex-grow: 1;
+
+  }
+}
+
+
+

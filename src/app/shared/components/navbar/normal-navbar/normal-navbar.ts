@@ -42,6 +42,7 @@ normales: Normal[] = [];
       next: (respuesta: Normal[]) => {
         this.normales = respuesta;
         console.log('Datos obtenidos:', this.normales);
+        
       },
       error: (error) => {
         console.error('Error al listar usuarios:', error);
